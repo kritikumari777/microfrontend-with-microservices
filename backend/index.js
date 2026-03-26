@@ -1,10 +1,5 @@
-const express = require('express')
-const app = express()
+import "dotenv/config";
 
-app.get("/", (req, res) => {
-    res.send("Done")
-    console.log("Done")
+console.log("INDEX ENV:", process.env.MONGO_URL); // 👈 check here
 
-})
-
-app.listen(5000)
+import "./src/auth/server.js";
