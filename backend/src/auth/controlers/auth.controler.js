@@ -30,16 +30,32 @@ export async function register(req , res) {
    
 
     //create a token with jwt
-     const token = jwt.sign(
-     {id: user._id}, 
-     config.JWT_SECRET,
-     {
-        expiresIn: "1d"
-     }
+    //  const token = jwt.sign(
+    //  {id: user._id}, 
+    //  config.JWT_SECRET,
+    //  {
+    //     expiresIn: "1d"
+    //  }
+    // )
+
+    const accessTocken = jwt.sign(
+        {id: user.id},
+        config.JWT_SECRET,
+        {expiresIn : "15m"}
     )
 
-    console.log("yes")
-
+    const refreshTocken = jwt.sign(
+        {id: user._id},
+        config.JWT_SECRET,
+        {expiresIn : "7d"}
+    )
+    
+    res.cookie("refreshToken", refreshTocken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+        maxAge: 7 * 24*60*60*1000 // 7 day
+    })
     res.status(201).json({
         message: "User registered successfully",
         code: 201,
@@ -48,9 +64,74 @@ export async function register(req , res) {
                 username: user.username,
                 email:user.email,
             },
-            token
+            // token
+            accessTocken
         }
     })
 
+}
+// get user or find user
+export async function getMe(req , res) {
+    const token = req.headers.authorization?.split(" ")[1];
+
+    if(!token) {
+        throw Error("token not found")
+    }
+
+    const decoded = jwt.verify(token, config.JWT_SECRET)
+    
+    const user = await userModel.findById(decoded.id)
+
+    res.status(200).json({
+        message: "user fetched sucessfully",
+        code : 200,
+        user: {
+            username: user.username,
+            email: user.email
+        }
+    })
 
 }
+
+// get refresh tocken
+export async function refreshToken(req, res) {
+   const refreshToken = req.cookies.refreshToken 
+
+   if(!refreshToken){
+    return res.status(401).json({
+        message: "Refresh tocken not found",
+        code : 401
+    })
+   }
+
+   const decoded = jwt.verify(refreshToken, config.JWT_SECRET)
+
+   const accessToken = jwt.sign(
+    {id: decoded.id},
+    config.JWT_SECRET,
+    {expiresIn: "15m"}
+   )
+
+   const newRefreshToken = jwt.sign({
+    id: decoded.id
+   },
+   config.JWT_SECRET,
+   {expiresIn: '7d'}
+   )
+
+   res.cookie("refreshToken", newRefreshToken, {
+    httpOnly: true,
+    secure:true,
+    sameSite: "strict",
+    maxAge: 7*24*60*60*1000 // 7 days
+   })
+
+   res.status(200).json({
+    message: "Access tocken refreshed sucessfully",
+    accessToken
+   })
+}
+
+
+
+  
