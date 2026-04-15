@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 
 const Navbar = () => {
     return (
-        <nav>
+        <nav className="bg-yellow-950 mb-5 py-3">
             <ol className="flex justify-around">
                 <li>
                     <Link to="/register">Register</Link>

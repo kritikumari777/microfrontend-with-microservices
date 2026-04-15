@@ -1,11 +1,11 @@
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
-import Navbar from "./components/auth/Navbar"
-import Dasboard from "./components/auth/Dasboard"
-import Login from "./components/auth/Login"
-import Home from "./components/auth/Home"
-import Logout from "./components/auth/Logout"
+import Navbar from "./modules/auth/components/Navbar"
+import Dasboard from "./modules/auth/components/Dasboard"
+import Login from "./modules/auth/components/Login"
+import Home from "./modules/auth/components/Home"
+import Logout from "./modules/auth/components/Logout"
 import AuthContext from "./context/AuthContext"
-import Register from "./components/auth/Register"
+import Register from "./modules/auth/components/Register"
 
 const App = () => {
   return (
