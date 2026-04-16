@@ -1,7 +1,7 @@
 import { Header } from "../../../shared/ui/Header"
 import { dasboard } from "../constant/constant"
 
-const Dasboard = () => {
+const Dashboard = () => {
   return (
     <div>
       <Header text={dasboard?.header}/>
@@ -10,4 +10,4 @@ const Dasboard = () => {
   )
 }
 
-export default Dasboard
+export default Dashboard

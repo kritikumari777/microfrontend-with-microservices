@@ -16,7 +16,7 @@ const Register = () => {
     return (
         <div className='card pt-10 w-80 mx-auto py-3'>
             <Header text={header}/>
-            <FormComp data={fields} value={registerUser?.[fields?.name]} btnType={btnFields?.btnType} btnText={btnFields?.btnText} onChange={(e) => {OnChangeObj(e, setRegisterUser)}} onClick={handleSubmit} />  
+            <FormComp data={fields} value={registerUser?.[fields?.name]} btnType={btnFields?.btnType} btnText={btnFields?.btnText} onChange={(e) => {onChangeObj(e, setRegisterUser)}} onClick={handleSubmit} />  
         </div>
     )
 }

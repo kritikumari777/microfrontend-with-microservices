@@ -1,26 +1,34 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { loginFields } from "../constant/constant"
-import { OnChangeObj } from '../../../shared/action/OnChangeAct'
 import { Header } from '../../../shared/ui/Header'
 import {FormComp} from "../../../shared/ui/Form"
+import {AuthContext} from '../../../context/AuthContext'
+import { onChangeObj } from '../../../shared/action/EventAct'
+import { useNavigate } from 'react-router-dom'
+
 const Login = () => {
 
     const [userCredential, setUserCredential] = useState({ email: "", passward: "" })
-
+    const {fetchLogin} = useContext(AuthContext)
+    const navigate = useNavigate()
     const {header, fields, btnFields} = loginFields
 
     const handleSubmit = (e) => {
-        e.preventDefault()
-        console.log(userCredential)
+       e.preventDefault()
+       fetchLogin(userCredential)
+       navigate("/")
 
     }
 
-    console.log("first", btnFields?.btnType)
+    const onChange = (e) => {
+    const { name, value } = e.target
+    setUserCredential((prev) => ({ ...prev, [name]: value }))
+}
 
     return (
         <div className='card w-80 mx-auto py-3'>
             <Header text={header}/>
-            <FormComp data={fields} value={userCredential?.[fields?.name]} btnType={btnFields?.btnType} btnText={btnFields?.btnText} onChange={(e) => {OnChangeObj(e, setUserCredential)}} onClick={handleSubmit} />  
+            <FormComp data={fields} value={userCredential?.[fields?.name]} btnType={btnFields?.btnType} btnText={btnFields?.btnText} onChange={(e) => onChangeObj(e, setUserCredential)} onSubmit={handleSubmit} />  
         </div>
     )
 }
