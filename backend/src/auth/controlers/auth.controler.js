@@ -57,7 +57,7 @@ export async function register(req, res) {
 
     })
 
-    const accessTocken = jwt.sign(
+    const accessToken = jwt.sign(
         {
             id: user._id,
             sessionId: session._id
