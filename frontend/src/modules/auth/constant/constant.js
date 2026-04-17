@@ -21,29 +21,29 @@ const loginFields = {
 }
 
 const registerFields = {
-    header: "Register" ,
+    header: "Register",
     fields: [
-            {
-                label: "Please Enter User Name",
-                name: "username",
-                type: "text",
-                placeholder: "Enter UserName",
-            },
-            {
-                label: "Please Enter Email",
-                name: "email",
-                type: "text",
-                placeholder: "Enter Email",
-            },
-            {
-                label: "Please Enter Password",
-                name: "password",
-                type: "password",
-                placeholder: "Enter Password",
-            }
-        ],
+        {
+            label: "Please Enter User Name",
+            name: "username",
+            type: "text",
+            placeholder: "Enter UserName",
+        },
+        {
+            label: "Please Enter Email",
+            name: "email",
+            type: "text",
+            placeholder: "Enter Email",
+        },
+        {
+            label: "Please Enter Password",
+            name: "password",
+            type: "password",
+            placeholder: "Enter Password",
+        }
+    ],
     btnFields: {
-        btnText: "register",
+        btnText: "Register",
         btnType: "submit"
     }
 }

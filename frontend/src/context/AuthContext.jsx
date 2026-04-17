@@ -24,8 +24,7 @@ const AuthProvider = ({ children }) => {
         setLoading(true)
         try {
             const response = await axios.get(`${baseURL}/get-me`)
-            console.log(response.data?.user)
-            setUser(response.data)
+            setUser(response.data?.user)
         } catch (error) {
             console.log(error)
         } finally {
@@ -52,16 +51,18 @@ const AuthProvider = ({ children }) => {
         }
     }
 
-    const fetchRegister = async () => {
+    const fetchRegister = async (userCredential) => {
         setLoading(true)
         try {
-            const response = await axios.post(`${baseURL}/regiser`)
+            const response = await axios.post(`${baseURL}/register`, userCredential)
             const { accessToken, refraceToken } = response.data
 
             localStorage.setItem(accessToken)
             localStorage.setItem(refraceToken)
 
             axios.defaults.headers.common['Authorization'] = `Berear ${accessToken}`
+
+            await fetchUser(accessToken)
         } catch (error) {
             console.log(error)
         } finally {
@@ -76,7 +77,6 @@ const AuthProvider = ({ children }) => {
             // console.log(responce.data)
 
             localStorage.removeItem('token')
-            localStorage.removeItem('accessToken')
             localStorage.removeItem('refrace')
             delete axios.defaults.headers.common['Authorization']
             setUser(null)

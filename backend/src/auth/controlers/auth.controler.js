@@ -77,13 +77,11 @@ export async function register(req, res) {
         message: "User registered successfully",
         code: 201,
         user: {
-            user: {
-                username: user.username,
-                email: user.email,
-            },
-            // token
-            accessTocken
-        }
+            username: user.username,
+            email: user.email,
+        },
+        // token
+        accessTocken
     })
 
 }

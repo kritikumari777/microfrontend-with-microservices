@@ -20,11 +20,6 @@ const Login = () => {
 
     }
 
-    const onChange = (e) => {
-    const { name, value } = e.target
-    setUserCredential((prev) => ({ ...prev, [name]: value }))
-}
-
     return (
         <div className='card w-80 mx-auto py-3'>
             <Header text={header}/>
