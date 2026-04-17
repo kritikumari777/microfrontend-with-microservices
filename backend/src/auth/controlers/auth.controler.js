@@ -81,7 +81,7 @@ export async function register(req, res) {
             email: user.email,
         },
         // token
-        accessTocken
+        accessToken
     })
 
 }
