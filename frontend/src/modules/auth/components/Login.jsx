@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
 
-    const [userCredential, setUserCredential] = useState({ email: "", passward: "" })
+    const [userCredential, setUserCredential] = useState({ email: "", password: "" })
     const {fetchLogin} = useContext(AuthContext)
     const navigate = useNavigate()
     const {header, fields, btnFields} = loginFields

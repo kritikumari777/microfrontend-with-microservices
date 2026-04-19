@@ -1,6 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import axios from "axios"
-import { baseURL } from "../axios/axios";
+import axios from "../axios/axios";
 import { useRoutes } from "react-router-dom";
 
 const AuthContext = createContext()
@@ -20,11 +19,12 @@ const AuthProvider = ({ children }) => {
     }, [])
 
     const fetchUser = async (token) => {
-      
         setLoading(true)
         try {
-            const response = await axios.get(`${baseURL}/get-me`)
+            const response = await axios.get(`/get-me`, {}, {withCredentials: true})
             setUser(response.data?.user)
+
+            await fetchRefrace(user, token)
         } catch (error) {
             console.log(error)
         } finally {
@@ -35,7 +35,7 @@ const AuthProvider = ({ children }) => {
     const fetchLogin = async (userCredential) => {
         setLoading(true)
         try {
-            const response = await axios.post(`${baseURL}/login`, userCredential)
+            const response = await axios.post(`/login`, userCredential, {withCredentials: true})
             const { accessToken, refraceToken } = response.data;
 
             localStorage.setItem("access", accessToken)
@@ -54,32 +54,50 @@ const AuthProvider = ({ children }) => {
     const fetchRegister = async (userCredential) => {
         setLoading(true)
         try {
-            const response = await axios.post(`${baseURL}/register`, userCredential)
+            const response = await axios.post(`/register`, userCredential, {withCredentials: true})
             const { accessToken, refraceToken } = response.data
 
-            localStorage.setItem(accessToken)
-            localStorage.setItem(refraceToken)
+            localStorage.setItem("access", accessToken)
+            localStorage.setItem("refrace", refraceToken)
 
-            axios.defaults.headers.common['Authorization'] = `Berear ${accessToken}`
+            axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
 
             await fetchUser(accessToken)
+
         } catch (error) {
             console.log(error)
         } finally {
-            setLoading(true)
+            setLoading(false)
         }
     }
     const fetchLogout = async () => {
 
         setLoading(true)
         try {
-            // const responce = await axios.get(`${baseURL}/logout`)
-            // console.log(responce.data)
+            const responce = await axios.get(`/logout`, {}, {withCredentials: true})
+            console.log(responce.data)
 
             localStorage.removeItem('token')
             localStorage.removeItem('refrace')
             delete axios.defaults.headers.common['Authorization']
             setUser(null)
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    const fetchRefrace = async () => {
+        setLoading(true)
+        try {
+            const response = await axios.get('/refresh-token',{}, {withCredentials: true})
+            const { accessToken } = response.data
+
+            localStorage.setItem('access', accessToken)
+
+            axios.defaults.headers.common[`Authorization`] = `Bearer ${accessToken}`
+
         } catch (error) {
             console.log(error)
         } finally {
