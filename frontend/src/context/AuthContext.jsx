@@ -7,24 +7,22 @@ const AuthContext = createContext()
 const AuthProvider = ({ children }) => {
 
     const [user, setUser] = useState(null)
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        const token = localStorage.getItem('token')
-
+        const token = localStorage.getItem('access')
         if (token) {
-            axios.defaults.headers.commom[`Authorization`] = `Bearer ${token}`
+            axios.defaults.headers.common[`Authorization`] = `Bearer ${token}`
             fetchUser(token)
+        }else{
+            setLoading(false)
         }
     }, [])
 
     const fetchUser = async (token) => {
-        setLoading(true)
         try {
             const response = await axios.get(`/get-me`, {}, {withCredentials: true})
             setUser(response.data?.user)
-
-            await fetchRefrace(user, token)
         } catch (error) {
             console.log(error)
         } finally {
@@ -33,7 +31,6 @@ const AuthProvider = ({ children }) => {
     }
 
     const fetchLogin = async (userCredential) => {
-        setLoading(true)
         try {
             const response = await axios.post(`/login`, userCredential, {withCredentials: true})
             const { accessToken, refraceToken } = response.data;
@@ -52,7 +49,6 @@ const AuthProvider = ({ children }) => {
     }
 
     const fetchRegister = async (userCredential) => {
-        setLoading(true)
         try {
             const response = await axios.post(`/register`, userCredential, {withCredentials: true})
             const { accessToken, refraceToken } = response.data
@@ -61,7 +57,7 @@ const AuthProvider = ({ children }) => {
             localStorage.setItem("refrace", refraceToken)
 
             axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
-
+            
             await fetchUser(accessToken)
 
         } catch (error) {
@@ -71,13 +67,10 @@ const AuthProvider = ({ children }) => {
         }
     }
     const fetchLogout = async () => {
-
-        setLoading(true)
         try {
             const responce = await axios.get(`/logout`, {}, {withCredentials: true})
-            console.log(responce.data)
 
-            localStorage.removeItem('token')
+            localStorage.removeItem('access')
             localStorage.removeItem('refrace')
             delete axios.defaults.headers.common['Authorization']
             setUser(null)
@@ -89,7 +82,6 @@ const AuthProvider = ({ children }) => {
     }
 
     const fetchRefrace = async () => {
-        setLoading(true)
         try {
             const response = await axios.get('/refresh-token',{}, {withCredentials: true})
             const { accessToken } = response.data
@@ -97,7 +89,7 @@ const AuthProvider = ({ children }) => {
             localStorage.setItem('access', accessToken)
 
             axios.defaults.headers.common[`Authorization`] = `Bearer ${accessToken}`
-
+            //   await fetchUser(accessToken)
         } catch (error) {
             console.log(error)
         } finally {

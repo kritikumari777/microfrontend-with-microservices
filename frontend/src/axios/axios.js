@@ -2,8 +2,7 @@ import axios from "axios"
 export const baseURL = "http://localhost:3000"
 
 const instance = axios.create({
-    baseURL : `${baseURL}/api/auth`,
-    withCredentials: true
+    baseURL: `${baseURL}/api/auth`,
 })
 
 instance.interceptors.response.use(
@@ -20,7 +19,7 @@ instance.interceptors.response.use(
         }
 
             try{
-                const response = await instance.post('/refresh-token')
+                const response = await instance.post('/refresh-token', { withCredentials: true})
                 const {accessToken} = response.data
                 localStorage.setItem("access", accessToken)
 
@@ -28,7 +27,7 @@ instance.interceptors.response.use(
                 originalRequest.headers[`Authorization`] = `Bearer ${accessToken}`
                 return instance(originalRequest)
             }catch(error){
-             console.log(error)
+                console.log(error)
             }
         }
         return Promise.reject(error);

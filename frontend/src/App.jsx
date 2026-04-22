@@ -27,7 +27,7 @@ const App = () => {
               <Dashboard />
             </PrivateRoute>
           } />
-          <Route path="/logOut" element={<Logout />} />
+          <Route path="/logout" element={<Logout />} />
         </Routes>
       </Router>
     </AuthProvider>
