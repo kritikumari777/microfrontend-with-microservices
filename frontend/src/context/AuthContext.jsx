@@ -23,6 +23,7 @@ const AuthProvider = ({ children }) => {
         try {
             const response = await axios.get(`/get-me`, {}, {withCredentials: true})
             setUser(response.data?.user)
+            console.log(response?.data)
         } catch (error) {
             console.log(error)
         } finally {
@@ -31,6 +32,7 @@ const AuthProvider = ({ children }) => {
     }
 
     const fetchLogin = async (userCredential) => {
+        setLoading(true)
         try {
             const response = await axios.post(`/login`, userCredential, {withCredentials: true})
             const { accessToken, refraceToken } = response.data;
@@ -49,6 +51,7 @@ const AuthProvider = ({ children }) => {
     }
 
     const fetchRegister = async (userCredential) => {
+        setLoading(true)
         try {
             const response = await axios.post(`/register`, userCredential, {withCredentials: true})
             const { accessToken, refraceToken } = response.data
@@ -67,6 +70,7 @@ const AuthProvider = ({ children }) => {
         }
     }
     const fetchLogout = async () => {
+        setLoading(true)
         try {
             const responce = await axios.get(`/logout`, {}, {withCredentials: true})
 
@@ -82,6 +86,7 @@ const AuthProvider = ({ children }) => {
     }
 
     const fetchRefrace = async () => {
+        setLoading(true)
         try {
             const response = await axios.get('/refresh-token',{}, {withCredentials: true})
             const { accessToken } = response.data
@@ -89,7 +94,6 @@ const AuthProvider = ({ children }) => {
             localStorage.setItem('access', accessToken)
 
             axios.defaults.headers.common[`Authorization`] = `Bearer ${accessToken}`
-            //   await fetchUser(accessToken)
         } catch (error) {
             console.log(error)
         } finally {

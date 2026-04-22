@@ -19,7 +19,7 @@ instance.interceptors.response.use(
         }
 
             try{
-                const response = await instance.post('/refresh-token', { withCredentials: true})
+                const response = await instance.post('/refresh-token', {},  { withCredentials: true})
                 const {accessToken} = response.data
                 localStorage.setItem("access", accessToken)
 
