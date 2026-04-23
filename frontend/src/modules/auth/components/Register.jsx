@@ -16,8 +16,7 @@ const Register = () => {
 
     const handleSubmit= (e) => {
         e.preventDefault()
-        fetchRegister(registerUser)
-        navigate("/")
+        fetchRegister(registerUser, navigate)
     }
 
     return (

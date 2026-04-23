@@ -8,7 +8,7 @@ const  PrivateRoute = ({children}) => {
     const navigate = useNavigate()
      
     if(loading){
-        return <p>Loading</p>
+        return <p>Loading...</p>
     }
 
     if(!user){

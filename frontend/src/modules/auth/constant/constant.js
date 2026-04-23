@@ -49,9 +49,10 @@ const registerFields = {
 }
 
 const logout = {
-    header: "Logout",
-    btnText: "Logout",
-    type: "button"
+        header: "Logout",
+        type: "button",
+        logoutBtnText: "Logout",
+        logoutAllBtnText: "Logout from all devise"
 }
 const home = {
     header: "Home",

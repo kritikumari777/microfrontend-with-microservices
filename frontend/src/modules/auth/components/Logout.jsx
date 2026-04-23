@@ -7,18 +7,23 @@ import { useNavigate } from 'react-router-dom'
 
 const Logout = () => {
 
-  const {fetchLogout} = useContext(AuthContext)
+  const {fetchLogout, fetchLogoutAll} = useContext(AuthContext)
   const navigate = useNavigate()
 
     const HandleLogout = () => {
-        fetchLogout()
-        navigate("/login")
+        fetchLogout(navigate)
+    }
+    const HandleLogoutAll = () => {
+        fetchLogoutAll(navigate)
     }
 
   return (
     <div>
         <Header text={logout?.header}/>
-        <Button type={logout?.text} text={logout?.btnText} className='btn btn-danger' onClick={HandleLogout}/>
+        <Button type={logout?.type} text={logout?.logoutBtnText} className='btn btn-danger' onClick={HandleLogout}/>
+        <div>
+        <Button type={logout?.type} text={logout?.logoutAllBtnText} className='btn btn-danger' onClick={HandleLogoutAll}/>
+        </div>
     </div>
   )
 }

@@ -15,8 +15,7 @@ const Login = () => {
 
     const handleSubmit = (e) => {
        e.preventDefault()
-       fetchLogin(userCredential)
-       navigate("/")
+       fetchLogin(userCredential, navigate)
 
     }
 

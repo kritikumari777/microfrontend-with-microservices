@@ -1,0 +1,62 @@
+Frontend - https://youtu.be/TKVeTVsCqtU?si=Xj_EpmUe0tkPNgeX
+
+Jwt Authientication - Frontend Step
+
+ REGISTER
+Send with user data
+Receive accessToken + user
+Store accessToken (localStorage)
+Set default header (Authorization)
+Redirect to home
+
+🔐 LOGIN
+Send POST /login request to backend API
+Receive accessToken + user
+Store accessToken
+Set header
+Redirect to home
+
+🔐 GET ME (on app load / protected pages)
+Get token from localStorage
+Set header
+Call GET /get-me
+If success → set user state
+If 401 → trigger refresh token
+
+🔐 REFRESH TOKEN (automatic via interceptor)
+Interceptor catches 401
+Call POST /refresh-token (no body, cookie auto sent)
+Receive new accessToken
+Update localStorage
+Update header
+Retry original request
+
+🔐 LOGOUT (Single Device)
+Call /logout
+Remove accessToken from localStorage
+Remove Authorization header
+Clear user state
+Redirect to login
+
+🔐 LOGOUT ALL DEVICES
+Call /logout-all
+Clear localStorage
+Remove header
+Clear user state
+Redirect to login
+
+------------------------------
+// refraceToken auto set and send from cookies - need to add "withCredentials: true" with baseURL
+
+const instance = axios.create({
+    baseURL: `${baseURL}/api/auth`,
+    withCredentials: true // refraceToken auto set and send from cookies
+})
+
+Otherwise we need to send as argument in request 
+For:
+Method GET - Signature	(url, config) as 2nd argument
+Method POST	- Signature (url, data, config) as 3rd argument
+
+const response = await axios.post(`/register`, userCredential, {withCredentials: true}) // auto set and send from cookies
+------------------------------

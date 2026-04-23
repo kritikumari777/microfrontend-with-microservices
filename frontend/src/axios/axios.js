@@ -3,6 +3,7 @@ export const baseURL = "http://localhost:3000"
 
 const instance = axios.create({
     baseURL: `${baseURL}/api/auth`,
+    withCredentials: true // refraceToken auto set and send from cookies
 })
 
 instance.interceptors.response.use(
@@ -19,7 +20,7 @@ instance.interceptors.response.use(
         }
 
             try{
-                const response = await instance.post('/refresh-token', {},  { withCredentials: true})
+                const response = await instance.post('/refresh-token',)
                 const {accessToken} = response.data
                 localStorage.setItem("access", accessToken)
 
