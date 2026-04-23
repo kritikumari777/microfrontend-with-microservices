@@ -1,0 +1,72 @@
+Backend - https://youtu.be/pkKn8q5AvsY?si=mNtywM02W10VzJME
+
+Jwt Authientication - Backend Step
+
+1. Register (Sign Up)
+Receive name, email, password from frontend
+Validate & Check if user already exists
+Hash password using bcrypt & Store user in db
+Generate Access Token (short-lived)
+Generate Refresh Token (long-lived)
+Store refresh token in DB (session)
+Send :
+Access token → response body
+Refresh token → HTTP-only cookie
+User is logged in
+
+✅ 2. Login
+User sends email/password
+verifies credentials from DB & Compare password with hashed password
+If valid:
+Generate Access Token (short-lived)
+Generate Refresh Token (long-lived)
+Store refresh token in DB (new session)
+Send :
+Access token → response body
+Refresh token → HTTP-only cookie
+User is logged in
+
+3. Session Creation (Important Part)
+Store refresh token in DB with:
+userId
+expiry
+device/browser info (optional)
+
+👉 This acts like a session record
+👉 You can track:
+
+active users
+multiple logins
+logout from all devices
+
+✅ 3. Get Me (Get Current User)
+Frontend sends access token in header
+Backend middleware extracts token
+Verify access token
+Decode userId from token
+Fetch user from database
+Return user data
+
+✅ 4. Refresh Token
+Frontend calls refresh API when access token expires
+Backend reads refresh token from cookie
+Verify &Check token exists in DB (session valid)
+Generate new refresh token (rotation)
+Update refresh token in DB
+Send :
+Access token → response body
+Refresh token → HTTP-only cookie
+
+✅ 5. Logout (Single Device)
+Frontend calls logout API
+Backend reads refresh token from cookie
+Delete that refresh token from DB
+Clear refresh token cookie
+User logged out from that device
+
+✅ 6. Logout from All Devices
+Frontend calls logout-all API
+Backend identifies user (via access token)
+Delete all refresh tokens of that user from DB
+Clear cookie
+User logged out from all devices
