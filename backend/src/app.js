@@ -2,7 +2,8 @@ import express from 'express'
 import morgan from 'morgan'
 import cors from "cors"
 import cookieParser from "cookie-parser"
-import authRouter from './routes/auth.routes.js'
+import authRouter from './auth/routes/auth.routes.js'
+import productRouter from "./commerce/routes/product.routes.js"
 const app = express()
 
 app.use(express.json())
@@ -17,4 +18,5 @@ app.use(cors({
  //app.auth is the prefix of api route
  // /app/auth/register is full api route
 app.use("/api/auth", authRouter)
+app.use("/api/product", productRouter)
 export default app

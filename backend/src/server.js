@@ -1,4 +1,4 @@
-import connectDB from "./database.js"
+import connectDB from "./config/database.js"
 import app from "./app.js"
 //database connection call
 connectDB()

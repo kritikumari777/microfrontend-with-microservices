@@ -1,7 +1,7 @@
 import userModel from "../models/user.model.js"
 import crypto from "crypto"
 import jwt from 'jsonwebtoken'
-import config from "../config/config.js"
+import config from "../../config/config.js"
 import sessionModel from "../models/section.model.js"
 
 export async function register(req, res) {

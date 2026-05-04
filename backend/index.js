@@ -2,4 +2,4 @@ import "dotenv/config";
 
 console.log("INDEX ENV:", process.env.MONGO_URL); // 👈 check here
 
-import "./src/auth/server.js";
+import "./src/server.js";
