@@ -4,6 +4,7 @@ import cors from "cors"
 import cookieParser from "cookie-parser"
 import authRouter from './auth/routes/auth.routes.js'
 import productRouter from "./commerce/routes/product.routes.js"
+import cartRouter from './commerce/routes/cart.routes.js'
 const app = express()
 
 app.use(express.json())
@@ -19,4 +20,5 @@ app.use(cors({
  // /app/auth/register is full api route
 app.use("/api/auth", authRouter)
 app.use("/api/product", productRouter)
+app.use("/api/cart", cartRouter)
 export default app

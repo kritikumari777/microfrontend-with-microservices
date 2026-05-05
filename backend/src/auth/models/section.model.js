@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const sessionSchema = new mongoose.Schema({
     user:{
         type : mongoose.Schema.Types.ObjectId,
-        ref: "users",
+        ref: "User",
         required: [true, "user is required"]
     },
     refreshTokenHash: {
@@ -26,6 +26,6 @@ const sessionSchema = new mongoose.Schema({
 },
 {timestamps: true})
 
-const sessionModel = mongoose.model("sessions", sessionSchema)
+const sessionModel = mongoose.model("Session", sessionSchema)
 
 export default sessionModel

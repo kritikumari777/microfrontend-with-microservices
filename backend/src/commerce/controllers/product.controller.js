@@ -1,8 +1,8 @@
-import ProductModule from "../models/product.model.js"
+import productModel from "../models/product.model.js"
 
 const createProduct = async (req, res) => {
     try {
-        const product = await ProductModule.create(req.body)
+        const product = await productModel.create(req.body)
         res.status(201).json({
             success: true,
             message: "Product created sucessfullf",
@@ -19,7 +19,7 @@ const createProduct = async (req, res) => {
 
 const fetchProduct = async (req, res) => {
     try {
-        const products = await ProductModule.find()
+        const products = await productModel.find()
         res.status(201).json({
             success: true,
             message: "product fetched sucessfully",
@@ -37,7 +37,7 @@ const fetchProduct = async (req, res) => {
 
 const fetchProductById = async (req, res) => {
     try {
-        const product = await ProductModule.findById(req.params.id)
+        const product = await productModel.findById(req.params.id)
 
         if (!product) {
             return res.status(400).json({
@@ -61,7 +61,7 @@ const fetchProductById = async (req, res) => {
 const updateProduct = async (req, res) => {
     try {
 
-        const product = await ProductModule.findByIdAndUpdate(req.params.id, req.body, {new: true})
+        const product = await productModel.findByIdAndUpdate(req.params.id, req.body, {new: true})
 
         if (!product) {
             return res.status(404).json({
@@ -86,7 +86,7 @@ const updateProduct = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
     try {
-        const product = await ProductModule.findByIdAndDelete(req.params.id)
+        const product = await productModel.findByIdAndDelete(req.params.id)
 
         if (!product) {
             return res.status(400).json({

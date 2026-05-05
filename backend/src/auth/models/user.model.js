@@ -18,6 +18,6 @@ const userSchema = new mongoose.Schema({
     }
 })
 
-const userModel = mongoose.model("users", userSchema) // model in small letter
+const userModel = mongoose.model("User", userSchema) // model in small letter
 
 export default userModel

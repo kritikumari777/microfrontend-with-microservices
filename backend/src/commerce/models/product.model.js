@@ -22,7 +22,7 @@ discount: {
     required: false
 },
 review:{
-    type: Number,
+    type: String,
     required: false
 },
 rating:{
@@ -31,5 +31,5 @@ rating:{
 }
 }, {timestamps: true})
 
-const ProductModule = model("product", productSchema)
-export default ProductModule
+const productModel = model("Product", productSchema)
+export default productModel
