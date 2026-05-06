@@ -7,7 +7,7 @@ image:{
 },
 title:{
     type: String,
-    require: true
+    required: true
 },
 description: {
     type: String,
@@ -16,6 +16,10 @@ description: {
 price:{
     type: Number,
     required: true
+},
+category:{
+    type: String,
+    required:true
 },
 discount: {
     type: Number,

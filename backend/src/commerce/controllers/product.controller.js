@@ -20,7 +20,7 @@ const createProduct = async (req, res) => {
 const fetchProduct = async (req, res) => {
     try {
         const products = await productModel.find()
-        res.status(201).json({
+        res.status(200).json({
             success: true,
             message: "product fetched sucessfully",
             products
@@ -45,7 +45,7 @@ const fetchProductById = async (req, res) => {
                 message: "Product not found"
             })
         }
-        res.status(201).json({
+        res.status(200).json({
             success: true,
             message: "Product is fetched",
             product
@@ -70,7 +70,7 @@ const updateProduct = async (req, res) => {
             })
         }
 
-        res.status(201).json({
+        res.status(200).json({
             success: true,
             message: "Product updated sucessfully",
             product
@@ -95,7 +95,7 @@ const deleteProduct = async (req, res) => {
             })
         }
 
-        res.status(201).json({
+        res.status(200).json({
             success: true,
             message: "Product deleted successfully",
             product

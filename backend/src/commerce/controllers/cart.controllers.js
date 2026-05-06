@@ -24,7 +24,7 @@ const fetchCarts = async (req, res) => {
     try{
         const cartItems = await cartModel.find({ userId: req.params.userId }).populate("productId");
 
-        res.status(201).json({
+        res.status(200).json({
             succuss: true,
             message: "cart items fatched successfully",
             cartItems
@@ -40,7 +40,7 @@ const fetchCarts = async (req, res) => {
 const removeCart = async (req, res)=>{
     const cardItem = await cartModel.deleteOne({userId: req.params.userId, productId: req.params.productId})
     try{
-        res.status(201).json({
+        res.status(200).json({
             succuss:true,
             message:"Item removed successfully",
             cardItem
