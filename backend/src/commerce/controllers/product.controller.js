@@ -1,6 +1,15 @@
 import productModel from "../models/product.model.js"
+import categoryModel from "../models/category.model.js"
+import mongoose from "mongoose"
 
 const createProduct = async (req, res) => {
+    const {categoryId} = req.body
+    const category = await categoryModel.findById(categoryId)
+    
+    if(!category) return res.status(404).json({
+        success: false,
+        message:"Invalid Category"
+    })
     try {
         const product = await productModel.create(req.body)
         res.status(201).json({
@@ -18,8 +27,27 @@ const createProduct = async (req, res) => {
 }
 
 const fetchProduct = async (req, res) => {
+    
     try {
-        const products = await productModel.find()
+        const products = await productModel.find().populate("categoryId")
+        res.status(200).json({
+            success: true,
+            message: "product fetched sucessfully",
+            products
+        })
+    }
+    catch (err) {
+        res.status(500).json({
+            success: false,
+            message: "Internal Server Error",
+            products
+        })
+    }
+}
+const fetchSelectedProduct = async (req, res) => {
+    
+    try {
+        const products = await productModel.find().select("title")
         res.status(200).json({
             success: true,
             message: "product fetched sucessfully",
@@ -37,7 +65,7 @@ const fetchProduct = async (req, res) => {
 
 const fetchProductById = async (req, res) => {
     try {
-        const product = await productModel.findById(req.params.id)
+        const product = await productModel.findById(req.params.id).populate("categoryId")
 
         if (!product) {
             return res.status(400).json({
@@ -59,8 +87,14 @@ const fetchProductById = async (req, res) => {
 }
 
 const updateProduct = async (req, res) => {
-    try {
+    if(!mongoose.isValidObjectId(req.params.id)){
+        res.status(400).json({
+            success:false,
+            message:"Invalid product id"
+        })
+    }
 
+    try {
         const product = await productModel.findByIdAndUpdate(req.params.id, req.body, {new: true})
 
         if (!product) {
@@ -85,6 +119,13 @@ const updateProduct = async (req, res) => {
 }
 
 const deleteProduct = async (req, res) => {
+    if(!mongoose.isValidObjectId(req.params.id)){
+        res.status(400).json({
+            success:false,
+            message:"Invalid product id"
+        })
+    }
+
     try {
         const product = await productModel.findByIdAndDelete(req.params.id)
 
@@ -111,6 +152,7 @@ const deleteProduct = async (req, res) => {
 export {
     createProduct,
     fetchProduct,
+    fetchSelectedProduct,
     fetchProductById,
     updateProduct,
     deleteProduct
