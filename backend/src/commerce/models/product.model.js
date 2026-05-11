@@ -36,5 +36,13 @@ rating:{
 }
 }, {timestamps: true})
 
+productSchema.virtual('id').get(function() {
+    return this._id.toHexString()
+})
+
+productSchema.set("toJSON",{
+    virtuals: true
+})
+
 const productModel = model("Product", productSchema)
 export default productModel
