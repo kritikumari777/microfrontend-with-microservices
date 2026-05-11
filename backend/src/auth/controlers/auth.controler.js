@@ -157,7 +157,32 @@ export async function login(req, res) {
     })
 
 }
-// get user or find user
+// get all user or find all user
+export async function getAllUser(req, res) {
+    try{
+        
+        const token = req.headers.authorization?.split(" ")[1];
+    
+        if (!token) {
+            throw Error("token not found")
+        }
+    
+        const user = await userModel.find().select('-password')
+    
+        res.status(200).json({
+            message: "user fetched sucessfully",
+            code: 200,
+            user: user
+        })
+    }catch(error){
+        return res.status(401).json({
+            message: "Invalid or expired token",
+            code: 401
+        })
+    }
+
+}
+// get a user or find a user
 export async function getMe(req, res) {
     try{
         
@@ -169,7 +194,7 @@ export async function getMe(req, res) {
     
         const decoded = jwt.verify(token, config.JWT_SECRET)
     
-        const user = await userModel.findById(decoded.id)
+        const user = await userModel.findById(decoded.id).select('-password')
     
         res.status(200).json({
             message: "user fetched sucessfully",

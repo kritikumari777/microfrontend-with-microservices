@@ -18,6 +18,14 @@ const userSchema = new mongoose.Schema({
     }
 })
 
+userSchema.virtual('id').get(function(){
+    return this._id.toHexString()
+})
+
+userSchema.set('toJSON', {
+    virtuals: true
+})
+
 const userModel = mongoose.model("User", userSchema) // model in small letter
 
 export default userModel

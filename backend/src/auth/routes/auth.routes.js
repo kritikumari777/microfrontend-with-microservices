@@ -11,6 +11,8 @@ authRouter.post("/login", authController.login)
 // Get /api/auth/get-me
 authRouter.get("/get-me", authController.getMe)
 
+authRouter.get("/get-users", authController.getAllUser)
+
 authRouter.post("/refresh-token", authController.refreshToken)
 
 authRouter.get("/logout", authController.logout)
