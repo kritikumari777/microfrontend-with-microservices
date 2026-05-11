@@ -19,7 +19,7 @@ const createProduct = async (req, res) => {
         })
 
     } catch (err) {
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
             message: err.message
         })
@@ -37,7 +37,7 @@ const fetchProduct = async (req, res) => {
         })
     }
     catch (err) {
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
             message: "Internal Server Error",
             products
@@ -55,7 +55,7 @@ const fetchSelectedProduct = async (req, res) => {
         })
     }
     catch (err) {
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
             message: "Internal Server Error",
             products
@@ -79,7 +79,7 @@ const fetchProductById = async (req, res) => {
             product
         })
     } catch (err) {
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
             message: "Internal server Error",
         })
@@ -111,7 +111,7 @@ const updateProduct = async (req, res) => {
         })
 
     } catch (err) {
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
             message: "Internal server error"
         })
@@ -142,7 +142,7 @@ const deleteProduct = async (req, res) => {
             product
         })
     } catch (err) {
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
             message: "Internal server error",
         })

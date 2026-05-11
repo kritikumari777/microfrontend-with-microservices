@@ -6,7 +6,7 @@ import authRouter from './auth/routes/auth.routes.js'
 import productRouter from "./commerce/routes/product.routes.js"
 import cartRouter from './commerce/routes/cart.routes.js'
 import categoryRouter from './commerce/routes/category.routes.js'
-
+import { errorHandler } from './helpers/error.handler.js'
 const app = express()
 
 app.use(express.json())
@@ -17,6 +17,9 @@ app.use(cors({
   origin: "http://localhost:5173", //Access-Control-Allow-Origin: http://localhost:5173
   credentials: true                //Access-Control-Allow-Credentials: true
 }));
+
+//error handler
+app.use(errorHandler)
 
  //app.auth is the prefix of api route
  // /app/auth/register is full api route

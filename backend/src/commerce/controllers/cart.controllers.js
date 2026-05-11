@@ -13,7 +13,7 @@ const createCart = async (req , res) => {
         })
 
     }catch (err) {
-        res.status(500).json({
+        return res.status(500).json({
             succuss: false,
             message: err.message,
         })
@@ -30,7 +30,7 @@ const fetchCarts = async (req, res) => {
             cartItems
         })
     }catch(err){
-        res.status(500).json({
+        return res.status(500).json({
             succuss: false,
             message: "Internal server error"
         })
@@ -47,7 +47,7 @@ const removeCart = async (req, res)=>{
         })
 
     }catch(err){
-        res.status(500).json({
+        return res.status(500).json({
             succuss:false,
             message:"Internal server error"
         })
