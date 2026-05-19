@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema({
     // can have multiple orders so rap on array
-    orderItems: [{
+    cartItems: [{
         type: mongoose.Types.ObjectId,
         ref: "Cart",
         required: true
