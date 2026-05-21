@@ -6,12 +6,13 @@ import sessionModel from "../models/section.model.js"
 
 export async function register(req, res) {
     //geting details from user
-    const { username, email, password } = req.body
+    const { username, email, password, role } = req.body
     // check if its present in db
     const isAlreadyRegistered = await userModel.findOne({
         $or: [
             { username },
-            { email }
+            { email },
+            {role}
         ]
     })
 
@@ -26,7 +27,8 @@ export async function register(req, res) {
     const user = await userModel.create({
         username,
         email,
-        password: hashedPassword
+        password: hashedPassword,
+        role
     })
 
 
@@ -79,6 +81,7 @@ export async function register(req, res) {
         user: {
             username: user.username,
             email: user.email,
+            role: user.role
         },
         // token
         accessToken
@@ -152,6 +155,7 @@ export async function login(req, res) {
         user: {
             username: user.username,
             email: user.email,
+            role: user.role
         },
         accessToken
     })
@@ -201,7 +205,8 @@ export async function getMe(req, res) {
             code: 200,
             user: {
                 username: user.username,
-                email: user.email
+                email: user.email,
+                role: user.role
             }
         })
     }catch(error){

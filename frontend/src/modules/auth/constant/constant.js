@@ -40,6 +40,17 @@ const registerFields = {
             name: "password",
             type: "password",
             placeholder: "Enter Password",
+        },
+        {
+            label: "Please Select Role",
+            name: "role",
+            type: "select",
+            placeholder: "Enter Role",
+            roles: [
+                { id: 1, role: "Please select role" },
+                { id: 2, role: "Customer" },
+                { id: 3, role: "Admin" }
+            ]
         }
     ],
     btnFields: {
@@ -49,10 +60,10 @@ const registerFields = {
 }
 
 const logout = {
-        header: "Logout",
-        type: "button",
-        logoutBtnText: "Logout",
-        logoutAllBtnText: "Logout from all devise"
+    header: "Logout",
+    type: "button",
+    logoutBtnText: "Logout",
+    logoutAllBtnText: "Logout from all devise"
 }
 const home = {
     header: "Home",
