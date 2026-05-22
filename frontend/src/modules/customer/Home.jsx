@@ -1,7 +1,7 @@
 import { useContext } from "react"
-import { Header } from "../../../shared/ui/Header"
-import { home } from "../constant/constant"
-import { AuthContext } from "../../../context/AuthContext"
+import { Header } from "../../shared/ui/Header"
+import { home } from "../auth/constant/constant"
+import { AuthContext } from "../../context/AuthContext"
 
 const Home = () => {
 

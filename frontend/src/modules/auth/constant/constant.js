@@ -69,9 +69,9 @@ const home = {
     header: "Home",
     text: "You are at Home page"
 }
-const dasboard = {
-    header: "Dasboard",
-    text: "You are at Dasboard page"
+const dashboard = {
+    header: "Dashboard",
+    text: "You are at dashboard page"
 }
 
 export {
@@ -79,6 +79,6 @@ export {
     registerFields,
     logout,
     home,
-    dasboard,
+    dashboard,
 
 }
