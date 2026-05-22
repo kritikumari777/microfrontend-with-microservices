@@ -4,6 +4,6 @@ input, select{
     padding: 5px 2px;
 }
 
-div{
+form > div{
     margin: 8px;
 }
