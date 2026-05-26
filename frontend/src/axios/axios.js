@@ -1,8 +1,8 @@
 import axios from "axios"
-export const baseURL = "http://localhost:3000"
+export const baseURL = "http://localhost:3000/api"
 
 const instance = axios.create({
-    baseURL: `${baseURL}/api/auth`,
+    baseURL: `${baseURL}/auth`,
     withCredentials: true // refraceToken auto set and send from cookies
 })
 

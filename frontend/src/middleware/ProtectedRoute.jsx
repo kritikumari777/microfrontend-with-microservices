@@ -8,7 +8,7 @@ const ProtectedRoute = ({ children, roles }) => {
 
     const getDefaultRoute = (role) => {
         switch (role) {
-            case "Admin": return '/admin/dashboard'
+            case "Admin": return '/admin-dashboard'
             case "Customer": return '/'
             default: return "/login"
         }

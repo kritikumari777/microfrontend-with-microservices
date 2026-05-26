@@ -9,7 +9,7 @@ const FormComp = (props) => {
 
     return (
         <form onSubmit={onSubmit}>
-            <div>
+            <div className=''>
                 {data?.map((item, i) => {
                     if (item?.type === "text" || item?.type === "password" || item?.type === "email") {
                         return (

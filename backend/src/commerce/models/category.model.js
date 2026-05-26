@@ -9,7 +9,7 @@ const categorySchama = new Schema({
         type: String,
         required: true
     }
-}, {timestamps: true})
+},)
 
 const categoryModle = model('Category', categorySchama)
 

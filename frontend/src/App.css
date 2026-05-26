@@ -1,9 +1,18 @@
-input, select{
+input,
+select {
     border: 2px solid rgb(52, 41, 146);
     border-radius: 5px;
     padding: 5px 2px;
 }
 
-form > div{
+form>div {
     margin: 8px;
+}
+
+form>div>div {
+    margin: 8px;
+}
+
+.table-border {
+    border: 2px solid rgb(52, 41, 146);
 }
