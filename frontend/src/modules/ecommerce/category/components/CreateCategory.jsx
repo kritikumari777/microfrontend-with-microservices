@@ -6,19 +6,23 @@ import { Header } from '../../../../shared/ui/Header'
 import { useCreateApi } from '../../../../shared/custome-hook/useEcommerseApi'
 import FetchCategory from './FetchCategory'
 import { Table } from '../../../../shared/ui/Table'
+import { useApiMutation } from '../../../../shared/custome-hook/useApiMutation'
 
 
 const CreateCategory = () => { 
 
   const [categoryFields, setCategoryFields] = useState( {name : "", icon : ""})
-  const {loading, data, error, creatApi} = useCreateApi("/category", categoryFields)
+  // const {loading, data, error, creatApi} = useCreateApi("/category", categoryFields)
+  const {data, isPending, isError, error, mutate} = useApiMutation( "/category", "POST", ["category"])
+
 
   const {header, title, fields, btnFields} = categoryData
 
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log("Sucessfull")
-    creatApi()
+    // creatApi()
+    mutate(categoryFields)
   }
   
   return (
