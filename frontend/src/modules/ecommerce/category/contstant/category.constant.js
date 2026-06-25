@@ -22,7 +22,9 @@ const categoryData = {
     btnFields: {
         btnType : "submit",
         btnText: "Add Category"
-    }
+    },
+    listOfCategory: "List of Category"
+
 }
 
 export {

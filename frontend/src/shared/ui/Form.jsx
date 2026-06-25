@@ -5,20 +5,20 @@ import Select from './Select'
 
 const FormComp = (props) => {
 
-    const { data, value, btnType, btnText, onChange, onSubmit } = props
+    const { data, formData, btnType, btnText, onChange, onSubmit } = props
 
     return (
         <form onSubmit={onSubmit}>
             <div className=''>
                 {data?.map((item, i) => {
-                    if (item?.type === "text" || item?.type === "password" || item?.type === "email") {
+                    if (item?.type === "select") {
                         return (
-                            <InputLabel key={i} label={item.label} type={item?.type} name={item.name} value={value} onChange={onChange} placeholder={item.placeholder} />
+                            <Select key={i} label={item?.label} name={item?.name} value={formData[item?.name]|| ""} roles={item?.roles} onChange={onChange} />
                         )
                     }
-                    else if (item?.type === "select") {
+                    else {
                         return (
-                            <Select key={i} label={item?.label} name={item?.name} value={value} roles={item?.roles} onChange={onChange} />
+                            <InputLabel key={i} label={item.label} type={item?.type} name={item.name} value={formData[item?.name]|| ""}  onChange={onChange} placeholder={item.placeholder} />
                         )
                     }
                 })}

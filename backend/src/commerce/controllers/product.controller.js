@@ -4,6 +4,7 @@ import mongoose from "mongoose"
 
 const createProduct = async (req, res) => {
     const {categoryId} = req.body
+    console.log(typeof req.body)
     const category = await categoryModel.findById(categoryId)
     
     if(!category) return res.status(404).json({

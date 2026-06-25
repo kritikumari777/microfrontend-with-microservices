@@ -7,11 +7,12 @@ import Navbar from "../modules/navbar/Navbar"
 import Login from "../modules/auth/components/Login"
 import Logout from "../modules/auth/components/Logout"
 import Admin from "../modules/admin"
-import Orders from "../modules/ecommerce/orders/components/Orders"
-import Cart from "../modules/ecommerce/cart/components/Cart"
 import Dashboard from "../modules/admin/Dashboard"
 import CreateCategory from "../modules/ecommerce/category/components/CreateCategory"
 import CreateProduct from "../modules/ecommerce/products/components/CreateProduct"
+import FetchCart from "../modules/ecommerce/cart/components/FetchCart"
+import FetchOrders from "../modules/ecommerce/orders/components/FetchOrders"
+import FetchUsers from "../modules/ecommerce/users/components/FetchUsers"
 
 
 const Root = () => {
@@ -41,9 +42,9 @@ const Root = () => {
           <Route index element={<Dashboard/>} />
           <Route path='categories' element={<CreateCategory/>}/>
           <Route path='products' element={<CreateProduct/>}/>
-          <Route path='cart' element={<Cart/>}/>
-          <Route path='orders' element={<Orders/>}/>
-          <Route path='users' element={<CreateProduct/>}/>
+          <Route path='cart' element={<FetchCart/>}/>
+          <Route path='orders' element={<FetchOrders/>}/>
+          <Route path='users' element={<FetchUsers/>}/>
           <Route path='profile' element={<CreateProduct/>}/>
         </Route>
       </Routes>

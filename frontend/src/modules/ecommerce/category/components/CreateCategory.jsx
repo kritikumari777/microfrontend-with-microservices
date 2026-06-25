@@ -9,36 +9,40 @@ import { Table } from '../../../../shared/ui/Table'
 import { useApiMutation } from '../../../../shared/custome-hook/useApiMutation'
 
 
-const CreateCategory = () => { 
+const CreateCategory = () => {
 
-  const [categoryFields, setCategoryFields] = useState( {name : "", icon : ""})
+  const [categoryFields, setCategoryFields] = useState({ name: "", icon: "" })
   // const {loading, data, error, creatApi} = useCreateApi("/category", categoryFields)
-  const {data, isPending, isError, error, mutate} = useApiMutation( "/category", "POST", ["category"])
+  const { data, isLoading, isError, error, mutate } = useApiMutation("/category", "POST", ["category"])
 
 
-  const {header, title, fields, btnFields} = categoryData
+  const { header, title, fields, btnFields } = categoryData
 
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log("Sucessfull")
     // creatApi()
     mutate(categoryFields)
+    setCategoryFields("")
   }
-  
+
+  if(isLoading) return <p>Loading ...</p>
+  if(isError)  return <p>Somthing Went wrong - {error}</p>
+
   return (
     <div>
       <Header text={header} />
       <div className='flex gap-5'>
         <div className='flex-1'>
           <h5>{title}</h5>
-          <FormComp data={fields} value={categoryFields?.[fields?.name]} 
-          btnType={btnFields?.btnType} btnText={btnFields?.btnText} 
-          onChange={(e) => onChangeObj(e, setCategoryFields)} 
-          onSubmit={handleSubmit} />
+          <FormComp data={fields} formData={categoryFields}
+            btnType={btnFields?.btnType} btnText={btnFields?.btnText}
+            onChange={(e) => onChangeObj(e, setCategoryFields)}
+            onSubmit={handleSubmit} />
         </div>
 
         <div className='flex-1'>
-          <FetchCategory categoryFields={categoryFields}/>
+          <FetchCategory categoryFields={categoryFields} />
         </div>
       </div>
     </div>

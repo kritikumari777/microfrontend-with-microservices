@@ -3,14 +3,14 @@ const productData = {
     title: "Add Product",
 
     fields: [
-        {label: "Please Enter product Name",
-         name : "name",
+        {label: "Please Enter product Title",
+         name : "title",
          type : "text",
          error : "Product name"
         },
 
-        {label: "Please enter Product category Name",
-         name : "category",
+        {label: "Please enter category Id",
+         name : "categoryId",
          type : "text",
          error : "Product category"
         },
@@ -30,7 +30,8 @@ const productData = {
         btnFields: {
             btnType: "submit",
             btnText: "Add Product"
-        }
+        },
+        ListOfProduct: "List Of Product"
 }
 
 export {

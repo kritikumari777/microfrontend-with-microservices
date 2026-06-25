@@ -22,7 +22,7 @@ const Login = () => {
     return (
         <div className='card w-80 mx-auto py-3'>
             <Header text={header}/>
-            <FormComp data={fields} value={userCredential?.[fields?.name]} btnType={btnFields?.btnType} btnText={btnFields?.btnText} onChange={(e) => onChangeObj(e, setUserCredential)} onSubmit={handleSubmit} />  
+            <FormComp data={fields} formData={userCredential} btnType={btnFields?.btnType} btnText={btnFields?.btnText} onChange={(e) => onChangeObj(e, setUserCredential)} onSubmit={handleSubmit} />  
         </div>
     )
 }
