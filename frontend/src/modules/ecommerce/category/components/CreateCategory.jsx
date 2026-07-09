@@ -7,6 +7,7 @@ import { useCreateApi } from '../../../../shared/custome-hook/useEcommerseApi'
 import FetchCategory from './FetchCategory'
 import { Table } from '../../../../shared/ui/Table'
 import { useApiMutation } from '../../../../shared/custome-hook/useApiMutation'
+import {ToastContainer} from "react-toastify"
 
 
 const CreateCategory = () => {
@@ -27,7 +28,6 @@ const CreateCategory = () => {
   }
 
   if(isLoading) return <p>Loading ...</p>
-  if(isError)  return <p>Somthing Went wrong - {error}</p>
 
   return (
     <div>
@@ -39,6 +39,7 @@ const CreateCategory = () => {
             btnType={btnFields?.btnType} btnText={btnFields?.btnText}
             onChange={(e) => onChangeObj(e, setCategoryFields)}
             onSubmit={handleSubmit} />
+            <ToastContainer position="top-right" autoClose={3000} />
         </div>
 
         <div className='flex-1'>

@@ -1,6 +1,6 @@
 import { baseURL } from "../../axios/axios";
 import {useMutation, useQueryClient} from "@tanstack/react-query"
-
+import {toast} from  "react-toastify"
 export const useApiMutation = (endpoint, methodType, invalidateKey) =>{
 
     const quereyClient = useQueryClient()
@@ -14,18 +14,25 @@ export const useApiMutation = (endpoint, methodType, invalidateKey) =>{
                  },
                  body: JSON.stringify(body),
                 })
+                
+                const data = await res.json()
 
                 if(!res.ok){
-                    throw new Error("Request failed")
+                    throw new Error(data?.message || "Request failed")
                 }
 
-                return res.json()
+                return data
         },
 
-        onSuccess: () => {
+        onSuccess: (data) => {
             quereyClient.invalidateQueries({
                 queryKey: invalidateKey,
             })
+            toast.success(error.message)
+        },
+
+        onError: (error) => {
+            toast.error(error.message)
         }
     })
 

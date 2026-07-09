@@ -1,0 +1,1 @@
+// right now i am not Authoriztion while adding the category and Product but lattar i have to add.
