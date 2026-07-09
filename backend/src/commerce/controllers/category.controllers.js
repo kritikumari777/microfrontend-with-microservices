@@ -2,6 +2,15 @@ import categoryModle from "../models/category.model.js"
 
 const createCategory = async (req, res) => {
     try {
+        const {name} = req.body
+        const isExistCategory = await categoryModle.findOne({name})
+       
+        if (isExistCategory) {
+            return res.status(409).json({
+                success: false,
+                message: "Category already exists"
+            })
+        }
 
         const category = await categoryModle.create(req.body)
 
