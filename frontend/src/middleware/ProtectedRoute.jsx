@@ -20,7 +20,6 @@ const ProtectedRoute = ({ children, roles }) => {
 
     // User not logged in
     if (!user) {
-        console.log("first")
         return <Navigate to='/login' replace />
     }
 

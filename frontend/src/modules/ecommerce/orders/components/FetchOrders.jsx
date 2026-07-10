@@ -8,8 +8,6 @@ const FetchOrders = () => {
    const  {data, isLoading, isError, error} = useApiQuery(['order'], '/order')
    const {header} = ordersData
 
-   console.log(data, "data")
-
    const thData = data?.orderList?.length ? Object.keys(data?.orderList[0]) : []
    const tdData = data?.orderList?.length ? data?.orderList?.map((item, i) => Object.values(item)) :  []
 

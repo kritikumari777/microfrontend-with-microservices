@@ -1,7 +1,7 @@
 import { baseURL } from "../../axios/axios";
 import {useMutation, useQueryClient} from "@tanstack/react-query"
 import {toast} from  "react-toastify"
-export const useApiMutation = (endpoint, methodType, invalidateKey) =>{
+export const useApiMutation = (endpoint, methodType, invalidateKey, getAuthHeader) =>{
 
     const quereyClient = useQueryClient()
 
@@ -10,7 +10,8 @@ export const useApiMutation = (endpoint, methodType, invalidateKey) =>{
             const res = await fetch(`${baseURL}${endpoint}`, 
                 {method: methodType,
                  headers: {
-                    "Content-TYpe" : "application/json",
+                    "Content-Type" : "application/json",
+                     ...getAuthHeader()
                  },
                  body: JSON.stringify(body),
                 })

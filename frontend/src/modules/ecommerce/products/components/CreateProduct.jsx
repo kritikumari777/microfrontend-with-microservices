@@ -16,7 +16,6 @@ const CreateProduct = () => {
   
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log("Sucessfull")
     // createApi()
     mutate(productFields)
     setProductFields("")

@@ -8,26 +8,26 @@ import FetchCategory from './FetchCategory'
 import { Table } from '../../../../shared/ui/Table'
 import { useApiMutation } from '../../../../shared/custome-hook/useApiMutation'
 import {ToastContainer} from "react-toastify"
+import {getAuthHeader} from "../../../../shared/services/api.services"
 
 
 const CreateCategory = () => {
 
   const [categoryFields, setCategoryFields] = useState({ name: "", icon: "" })
   // const {loading, data, error, creatApi} = useCreateApi("/category", categoryFields)
-  const { data, isLoading, isError, error, mutate } = useApiMutation("/category", "POST", ["category"])
+  const {isPending, mutate } = useApiMutation("/category", "POST", ["category"], getAuthHeader)
 
 
   const { header, title, fields, btnFields } = categoryData
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log("Sucessfull")
     // creatApi()
     mutate(categoryFields)
     setCategoryFields("")
   }
 
-  if(isLoading) return <p>Loading ...</p>
+  if(isPending) return <p>Loading ...</p>
 
   return (
     <div>

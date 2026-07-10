@@ -73,9 +73,6 @@ const fetchCategoryById = async (req, res) => {
 
 const updateCategory = async (req, res) => {
 
-    console.log("ID:", req.params.id);
-    console.log("BODY:", req.body);
-
     try {
 
         const category = await categoryModle.findByIdAndUpdate(req.params.id, req.body, { new: true })

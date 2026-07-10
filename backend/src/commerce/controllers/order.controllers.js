@@ -226,7 +226,6 @@ const totalSales = async (req, res) => {
 const totalOrder = async (req, res) => {
     const totalOrder = await orderModle.countDocuments()
    
-    console.log(totalOrder)
     try{
         if(!totalOrder){
           res.status(404).json({
