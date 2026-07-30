@@ -30,7 +30,7 @@ const createCategory = async (req, res) => {
 const fetchCategory = async (req, res) => {
     try {
 
-        const categorys = await categoryModle.find()
+        const categorys = await categoryModle.find().select("-__v")
 
         res.status(200).json({
             success: true,

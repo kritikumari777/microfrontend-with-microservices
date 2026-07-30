@@ -29,7 +29,7 @@ const createProduct = async (req, res) => {
 const fetchProduct = async (req, res) => {
     
     try {
-        const products = await productModel.find().populate("categoryId")
+        const products = await productModel.find().populate("categoryId").select("-__v")
         res.status(200).json({
             success: true,
             message: "product fetched sucessfully",
