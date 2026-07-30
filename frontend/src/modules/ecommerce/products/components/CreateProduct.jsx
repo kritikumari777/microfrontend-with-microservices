@@ -6,12 +6,13 @@ import { productData } from "../constants/products.contants"
 import { useCreateApi } from '../../../../shared/custome-hook/useEcommerseApi'
 import FetchProducts from './FetchProducts'
 import { useApiMutation } from '../../../../shared/custome-hook/useApiMutation'
+import {getAuthHeader} from "../../../../shared/services/api.services.js"
 
 const CreateProduct = () => {
 
   const [productFields, setProductFields] = useState({ title: "", categoryId: "", price: "", description: "" })
   // const {loading, data, error, createApi, mutate} = useCreateApi("/product", productFields)
-  const {data, isLoading, isError, error, mutate} = useApiMutation("/product", "POST", ['product'])
+  const {data, isLoading, isError, error, mutate} = useApiMutation("/product", "POST", ['product'], getAuthHeader)
   const { header, title, fields, btnFields } = productData
   
   const handleSubmit = (e) => {

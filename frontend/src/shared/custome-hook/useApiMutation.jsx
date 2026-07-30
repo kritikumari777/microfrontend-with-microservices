@@ -6,14 +6,15 @@ export const useApiMutation = (endpoint, methodType, invalidateKey, getAuthHeade
     const quereyClient = useQueryClient()
 
     return  useMutation({
-        mutationFn: async (body) => {
-            const res = await fetch(`${baseURL}${endpoint}`, 
+        mutationFn: async ({ body, urlParams = "" }) => {
+            console.log(`${baseURL}${endpoint}${urlParams}`)
+            const res = await fetch(`${baseURL}${endpoint}${urlParams}`, 
                 {method: methodType,
                  headers: {
                     "Content-Type" : "application/json",
                      ...getAuthHeader()
                  },
-                 body: JSON.stringify(body),
+                 ...(body && {body: JSON.stringify(body)}),
                 })
                 
                 const data = await res.json()
@@ -29,7 +30,7 @@ export const useApiMutation = (endpoint, methodType, invalidateKey, getAuthHeade
             quereyClient.invalidateQueries({
                 queryKey: invalidateKey,
             })
-            toast.success(error.message)
+                toast.success(data?.message || "Success");
         },
 
         onError: (error) => {

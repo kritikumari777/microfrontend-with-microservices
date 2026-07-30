@@ -1,11 +1,11 @@
 
-import { ButtonSubmit } from './Button'
+import { Button, ButtonSubmit } from './Button'
 import { InputLabel } from './Input'
 import Select from './Select'
 
 const FormComp = (props) => {
 
-    const { data, formData, btnType, btnText, onChange, onSubmit } = props
+    const { data, formData, btnType, btnText, onChange, onSubmit, onCancle,  isCancle} = props
 
     return (
         <form onSubmit={onSubmit}>
@@ -24,6 +24,7 @@ const FormComp = (props) => {
                 })}
             </div>
             <ButtonSubmit type={btnType} text={btnText} />
+            {isCancle && <Button className='btn btn-success mx-3' type={btnType} text={"Cancle"} onClick={onCancle} />}
         </form>
     )
 }

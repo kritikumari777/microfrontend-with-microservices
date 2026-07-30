@@ -1,51 +1,28 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { FormComp } from '../../../../shared/ui/Form'
 import { categoryData } from '../contstant/category.constant'
 import { onChangeObj } from '../../../../shared/action/EventAct'
-import { Header } from '../../../../shared/ui/Header'
-import { useCreateApi } from '../../../../shared/custome-hook/useEcommerseApi'
-import FetchCategory from './FetchCategory'
-import { Table } from '../../../../shared/ui/Table'
-import { useApiMutation } from '../../../../shared/custome-hook/useApiMutation'
-import {ToastContainer} from "react-toastify"
-import {getAuthHeader} from "../../../../shared/services/api.services"
+import { ToastContainer } from "react-toastify"
 
 
-const CreateCategory = () => {
+const CreateCategory = (props) => {
 
-  const [categoryFields, setCategoryFields] = useState({ name: "", icon: "" })
-  // const {loading, data, error, creatApi} = useCreateApi("/category", categoryFields)
-  const {isPending, mutate } = useApiMutation("/category", "POST", ["category"], getAuthHeader)
+    const { categoryFields, setCategoryFields, isCreatePanding, isEditId, isEditPending, createError } = props
+    const { title, fields, btnFields } = categoryData
 
-
-  const { header, title, fields, btnFields } = categoryData
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    // creatApi()
-    mutate(categoryFields)
-    setCategoryFields("")
-  }
-
-  if(isPending) return <p>Loading ...</p>
+  if(createError) return <p> Error {createError}</p>
+  let text = isEditId ? isEditPending ? "Loading" : "Edit" : isCreatePanding ? "Loading" : btnFields?.btnText
 
   return (
     <div>
-      <Header text={header} />
-      <div className='flex gap-5'>
-        <div className='flex-1'>
-          <h5>{title}</h5>
-          <FormComp data={fields} formData={categoryFields}
-            btnType={btnFields?.btnType} btnText={btnFields?.btnText}
-            onChange={(e) => onChangeObj(e, setCategoryFields)}
-            onSubmit={handleSubmit} />
-            <ToastContainer position="top-right" autoClose={3000} />
-        </div>
-
-        <div className='flex-1'>
-          <FetchCategory categoryFields={categoryFields} />
-        </div>
-      </div>
+      <h5>{title}</h5>
+      <FormComp data={fields} formData={categoryFields}
+        btnType={btnFields?.btnType} btnText={text}
+        onChange={(e) => onChangeObj(e, setCategoryFields)}
+        isCancle= {isEditId && true}
+        {...props}
+        />
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   )
 }
