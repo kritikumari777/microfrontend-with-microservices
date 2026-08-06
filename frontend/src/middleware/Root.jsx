@@ -9,10 +9,10 @@ import Logout from "../modules/auth/components/Logout"
 import Admin from "../modules/admin"
 import Dashboard from "../modules/admin/Dashboard"
 import Category from "../modules/ecommerce/category/components"
-import CreateProduct from "../modules/ecommerce/products/components/CreateProduct"
 import FetchCart from "../modules/ecommerce/cart/components/FetchCart"
 import FetchOrders from "../modules/ecommerce/orders/components/FetchOrders"
 import FetchUsers from "../modules/ecommerce/users/components/FetchUsers"
+import Product from "../modules/ecommerce/products/components"
 
 const Root = () => {
   return (
@@ -40,11 +40,11 @@ const Root = () => {
         } >
           <Route index element={<Dashboard/>} />
           <Route path='categories' element={<Category/>}/>
-          <Route path='products' element={<CreateProduct/>}/>
+          <Route path='products' element={<Product/>}/>
           <Route path='cart' element={<FetchCart/>}/>
           <Route path='orders' element={<FetchOrders/>}/>
           <Route path='users' element={<FetchUsers/>}/>
-          <Route path='profile' element={<CreateProduct/>}/>
+          <Route path='profile' element={<Product/>}/>
         </Route>
       </Routes>
     </Router>
