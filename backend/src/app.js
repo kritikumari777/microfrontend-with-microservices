@@ -8,6 +8,7 @@ import cartRouter from './commerce/routes/cart.routes.js'
 import categoryRouter from './commerce/routes/category.routes.js'
 import { errorHandler } from './helpers/error.handler.js'
 import orderRouter from './commerce/routes/order.routes.js'
+import suppilerRouter from './commerce/routes/suppiler.routes.js'
 const app = express()
 
 app.use(express.json())
@@ -29,4 +30,6 @@ app.use("/api/product", productRouter)
 app.use("/api/cart", cartRouter)
 app.use("/api/category", categoryRouter);
 app.use("/api/order", orderRouter)
+app.use("/api/supplier", suppilerRouter)
+
 export default app
