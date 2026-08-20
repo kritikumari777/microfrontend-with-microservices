@@ -35,7 +35,9 @@ const Category = () => {
         if (isEditId !== null) {
             editMutate({ body: categoryFields, urlParams: `/${isEditId}` })
         } else {
-            createMutate({ body: categoryFields })
+            if(categoryFields?.name?.trim()){
+                createMutate({ body: categoryFields })
+            }
         }
         setCategoryFields("")
     }

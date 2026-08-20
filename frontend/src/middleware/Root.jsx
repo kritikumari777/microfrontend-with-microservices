@@ -13,6 +13,7 @@ import FetchCart from "../modules/ecommerce/cart/components/FetchCart"
 import FetchOrders from "../modules/ecommerce/orders/components/FetchOrders"
 import FetchUsers from "../modules/ecommerce/users/components/FetchUsers"
 import Product from "../modules/ecommerce/products/components"
+import Supplier from "../modules/ecommerce/supplier/components"
 
 const Root = () => {
   return (
@@ -41,6 +42,7 @@ const Root = () => {
           <Route index element={<Dashboard/>} />
           <Route path='categories' element={<Category/>}/>
           <Route path='products' element={<Product/>}/>
+          <Route path='supplier' element={<Supplier/>}/>
           <Route path='cart' element={<FetchCart/>}/>
           <Route path='orders' element={<FetchOrders/>}/>
           <Route path='users' element={<FetchUsers/>}/>

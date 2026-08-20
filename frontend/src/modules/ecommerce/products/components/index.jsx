@@ -33,13 +33,14 @@ const Product = () => {
         if(isEditId){
              editMutate({body: productFields, urlParams: `/${isEditId}`})
         }else{
-            createMutate({body : productFields})
+            if(productFields?.title?.trim()){
+                createMutate({body : productFields})
+            }
         }
         setProductFields("")
     }
 
     const onEdit = (row) => {
-        console.log(row)
      const [id, title, description, price, category,  categoryId] = row
      setIsEditId(id)
      setProductFields({title: title, categoryId: categoryId, category: category, price: price, description: description })
