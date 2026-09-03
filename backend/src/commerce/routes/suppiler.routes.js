@@ -7,7 +7,7 @@ const suppilerRouter = Router()
 
 suppilerRouter.post("/", authMiddleware, createSuppiler)
 suppilerRouter.get("/", authMiddleware, fetchSuppiler)
-suppilerRouter.get("/suppiler/:id", authMiddleware, fetchSupplierById)
+suppilerRouter.get("/:id", fetchSupplierById)
 suppilerRouter.put("/:id", authMiddleware, updateSupplier)
 suppilerRouter.delete("/:id", authMiddleware, deleteSupplier)
 

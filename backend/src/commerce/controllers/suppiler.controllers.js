@@ -45,7 +45,7 @@ const fetchSuppiler = async (req, res) => {
 const fetchSupplierById = async (req, res) => {
     
     try{ 
-        const suppiler = await suppilerModle.findById(req.parmas.id)
+        const suppiler = await suppilerModle.findById(req.params.id)
 
          if(!suppiler){
             return res.status(404).json({
@@ -73,7 +73,7 @@ const fetchSupplierById = async (req, res) => {
 const updateSupplier = async (req, res) => {
     
     try{ 
-        const suppiler = await suppilerModle.findByIdAndUpdate(req.params.id, req,body, {new: true})
+        const suppiler = await suppilerModle.findByIdAndUpdate(req.params.id, req.body, {new: true})
 
          if(!suppiler){
             return res.status(404).json({
