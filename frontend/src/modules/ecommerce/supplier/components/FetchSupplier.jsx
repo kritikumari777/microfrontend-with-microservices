@@ -14,7 +14,7 @@ const FetchSupplier = (props) => {
   return (
     <div>
       <h5>{ListOfSupplier}</h5>
-      <div className='w-100 h-80 overflow-scroll mx-5'>
+      <div className='h-80 overflow-scroll mx-5'>
         <Table thData={thData} tdData={tdData} isCrud={true} {...props} className="" />
       </div>
     </div>

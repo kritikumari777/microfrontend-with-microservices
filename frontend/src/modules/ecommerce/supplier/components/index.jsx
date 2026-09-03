@@ -10,7 +10,7 @@ import { Button } from '../../../../shared/ui/Button'
 
 const Supplier = () => {
 
-    const [suppilerFields, setSuppilerFields] = useState({ name: "", email: "", pnone: "", address: "" })
+    const [suppilerFields, setSuppilerFields] = useState({ name: "", email: "", phone: "", address: "" })
     const [isEditId, setIsEditId] = useState(null)
     const [isOpen, setIsOpen] = useState(false)
     // using reactTankStack
@@ -44,16 +44,16 @@ const Supplier = () => {
     }
 
     const onCancle = () => {
-        setSuppilerFields({ name: "", icon: "" })
+        setSuppilerFields({ name: "", email: "", phone: "", address: "" })
         setIsEditId(null)
         setIsOpen(false)
     }
 
     const onEdit = (row) => {
-        const [id, name, icon] = row
+        const [id, name, email, phone, address] = row
         setIsEditId(id)
         setIsOpen(true)
-        setSuppilerFields({ name: name, icon: icon })
+        setSuppilerFields({ name: name, email: email, phone: phone, address: address })
 
     }
 
