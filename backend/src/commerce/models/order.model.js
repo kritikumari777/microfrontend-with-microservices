@@ -47,13 +47,13 @@ const orderSchema = new mongoose.Schema({
 
 })
 
-orderSchema.virtual("id").get( function(){
-    return this._id.toHexString();
-})
+// orderSchema.virtual("id").get( function(){
+//     return this._id.toHexString();
+// })
 
-orderSchema.set('toJSON', {
-    virtuals: true
-})
+// orderSchema.set('toJSON', {
+//     virtuals: true
+// })
 
 const orderModle = mongoose.model("Order", orderSchema)
 

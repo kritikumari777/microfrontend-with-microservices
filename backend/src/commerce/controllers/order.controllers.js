@@ -1,6 +1,7 @@
 import mongoose, { isValidObjectId } from "mongoose"
 import cartModel from "../models/cart.model.js"
 import orderModle from "../models/order.model.js"
+import productModel from "../models/product.model.js"
 
 const createOrder = async (req, res) => {
 
@@ -13,13 +14,16 @@ const createOrder = async (req, res) => {
 
         const totalPrices = await Promise.all(req.body.cartItems.map(async (cartItemsId) => {
 
-            const cartItem = await cartModel.findById(cartItemsId).populate('productId', 'price')
+            // console.log(cartItemsId)
+
+            const cartItem = await cartModel.findById(cartItemsId).populate('productId')
+            // const price = await productModel.findById(cartItem?.)
 
             if (!cartItem) {
                 console.log("Cart item not found");
                 return 0;
             }
-
+            // console.log(cartItem)
             const totalPrices = cartItem.productId.price * cartItem.qty;
 
             return totalPrices
@@ -68,7 +72,7 @@ const fetchOrder = async (req, res) => {
 
     try {
 
-        const orderList = await orderModle.find().populate('user', 'username').sort({ 'orderedDate': -1 })
+        const orderList = await orderModle.find().populate('user', 'username').sort({ 'orderedDate': -1 }).select("-__v")
 
         if (!orderList) {
             return res.status(404).json({
