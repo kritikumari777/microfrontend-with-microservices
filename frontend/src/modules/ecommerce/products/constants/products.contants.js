@@ -1,6 +1,10 @@
 const productData = {
     header: "Manage Products",
-    title: "Add Product",
+
+    productBtn:{
+        btnText: "Add Product",
+        btnType: "button"
+    },
 
     fields: [
         {label: "Please Enter product Title",

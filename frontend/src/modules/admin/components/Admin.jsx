@@ -1,17 +1,15 @@
 import { Outlet } from "react-router-dom"
-import Sidebar from "./components/Sidebar"
+import Sidebar from "./Sidebar"
 
 const Admin = () => {
-
-//   const { user } = useContext(AuthContext)
   return (
     <div>
       <div className="flex justify-between">
         <div className="bg-amber-950 text-amber-300">
-        <Sidebar/>
+          <Sidebar />
         </div>
-        <div className="flex-1 bg-amber-50 min-h-screen">
-          <Outlet/>
+        <div className="flex-1 bg-amber-50 min-h-screen  w-[76%] h-100">
+          <Outlet />
         </div>
       </div>
     </div>

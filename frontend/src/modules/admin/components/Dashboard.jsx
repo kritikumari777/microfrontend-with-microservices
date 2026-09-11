@@ -1,9 +1,7 @@
 import { useContext } from "react"
-import { Header } from "../../shared/ui/Header"
-import { AuthContext } from "../../context/AuthContext"
-import { dashboard } from "../auth/constant/constant"
-import { Outlet } from "react-router-dom"
-import Sidebar from "./components/Sidebar"
+import { AuthContext } from "../../../context/AuthContext"
+import { dashboard } from "../../auth/constant/constant"
+import { Header } from "../../../shared/ui/Header"
 
 const Dashboard = () => {
 

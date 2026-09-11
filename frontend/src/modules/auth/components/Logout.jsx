@@ -18,7 +18,7 @@ const Logout = () => {
     }
 
   return (
-    <div>
+    <div className='py-5'>
         <Header text={logout?.header}/>
         <Button type={logout?.type} text={logout?.logoutBtnText} className='btn btn-danger' onClick={HandleLogout}/>
         <div>

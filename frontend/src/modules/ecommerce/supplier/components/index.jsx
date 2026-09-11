@@ -19,7 +19,7 @@ const Supplier = () => {
     const { isPanding: isEditPending, error: editError, mutate: editMutate } = useApiMutation(`/supplier`, "PUT", ["supplier"], getAuthHeader)
     const { isPanding: isDeletPending, error: deleteError, mutate: deleteMutate } = useApiMutation(`/supplier`, "DELETE", ["supplier"], getAuthHeader)
 
-    const { header, supplierBtn, title, fields, btnFields, listOfCategory } = supplierData
+    const { header, supplierBtn} = supplierData
     // const { listOfCategory } = categoryData
 
     // using custome hook

@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import { Header } from '../../../../shared/ui/Header'
 import { FormComp } from '../../../../shared/ui/Form'
 import { onChangeObj } from '../../../../shared/action/EventAct'
 import { productData } from "../constants/products.contants"
 import { ToastContainer } from 'react-toastify'
+import Modal from '../../../../shared/ui/Modal'
 
 const CreateProduct = (props) => {
 
-  const { productFields, setProductFields, isError, isEditId, isEditPanding, isCreatePanding } = props
+  const { productFields, setProductFields, isError, isEditId, isEditPanding, isCreatePanding,isOpen, setIsOpen } = props
   const {title, fields, btnFields} = productData
 
   let text = isEditId ? isEditPanding? "Loading" : "Edit" : isCreatePanding ? "Loading" : btnFields?.btnText
@@ -15,7 +15,7 @@ const CreateProduct = (props) => {
   if (isError) return <p>Somthing Went Wrong</p>
 
   return (
-    <div>
+    <Modal isOpen={isOpen} setIsOpen={() => setIsOpen(prev => !prev)} className="w-95 h-90 m-auto">
       <h3>{title}</h3>
       <FormComp data={fields} formData={productFields}
         btnType={btnFields?.btnType} btnText={text}
@@ -24,7 +24,7 @@ const CreateProduct = (props) => {
         {...props}
        />
        <ToastContainer position="top-right" autoClose={3000}/>
-    </div>
+    </Modal>
   )
 }
 

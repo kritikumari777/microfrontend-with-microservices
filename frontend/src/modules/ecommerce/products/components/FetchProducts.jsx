@@ -18,9 +18,9 @@ const FetchProducts = (props) => {
   if(isError) return <p>Somthing Went Wrong - {error}</p>
 
   return (
-    <div>
+    <div className='px-5'>
       <h5>{ListOfProduct}</h5>
-      <div className='h-80 w-80 overflow-scroll'>
+      <div className='h-80 w-100 overflow-scroll'>
       <Table thData={thData} tdData={tdData}  isCrud={true} {...props}/>
       </div>
     </div>

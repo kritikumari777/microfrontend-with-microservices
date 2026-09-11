@@ -3,7 +3,7 @@ import { Table } from '../../../../shared/ui/Table'
 import { categoryData } from '../contstant/category.constant'
 
 const FetchCategory = (props) => {
-  const { categoryFields, isPanding, data, error } = props
+  const {isPanding, data, error } = props
  
   const thData = data?.categorys?.length ? Object.keys(data.categorys[0]) : []
   const tdData = data?.categorys?.length ? data?.categorys?.map((item, i) => Object.values(item)) : []
