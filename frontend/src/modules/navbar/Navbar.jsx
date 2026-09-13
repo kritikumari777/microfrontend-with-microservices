@@ -20,7 +20,7 @@ const Navbar = () => {
                         </li>
                     </div>) :
                     (
-                    <div className="">
+                    <div className="flex justify-between gap-20">
                         {user.role === 'Customer' &&
                             (<li>
                                 <Link to="/">Home</Link>

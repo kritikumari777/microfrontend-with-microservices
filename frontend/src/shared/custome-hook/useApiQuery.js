@@ -4,15 +4,18 @@ import { baseURL } from "../../axios/axios"
 export const useApiQuery = (
     queryKey,
     endpoint,
-    options = {},
-    getAuthHeader
+    getAuthHeader,
+    idParams = "",
+    options = {}
 ) => {
     return useQuery({
         queryKey,
-        queryFn: async () => {
-            const res = await fetch(`${baseURL}${endpoint}`, 
-                {headers: { Authorization: `Bearer ${localStorage.getItem("access")}`,}}
-            )
+             queryFn: async () => {
+            const res = await fetch(`${baseURL}${endpoint}${idParams}`, {
+                headers: {
+                    ...getAuthHeader(),
+                },
+            });
 
             if (!res.ok) {
                 throw new Error("Failed to fetch data")
