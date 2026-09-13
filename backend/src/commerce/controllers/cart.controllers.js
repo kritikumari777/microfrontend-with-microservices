@@ -22,7 +22,7 @@ const createCart = async (req , res) => {
 
 const fetchCarts = async (req, res) => {
     try{
-        const cartItems = await cartModel.find({ userId: req.params.userId }).populate("productId");
+        const cartItems = await cartModel.find({ userId: req.params.userId }).populate("productId").select("-__v");
 
         res.status(200).json({
             succuss: true,
