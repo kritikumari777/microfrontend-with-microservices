@@ -171,7 +171,7 @@ export async function getAllUser(req, res) {
             throw Error("token not found")
         }
     
-        const user = await userModel.find().select('-password')
+        const user = await userModel.find().select('-password -__v')
     
         res.status(200).json({
             message: "user fetched sucessfully",
