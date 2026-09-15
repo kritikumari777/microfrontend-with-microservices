@@ -4,7 +4,6 @@ import { FormComp } from '../../../../shared/ui/Form'
 import { supplierData } from '../constant/supplier.contants'
 import { onChangeObj } from '../../../../shared/action/EventAct'
 import { ToastContainer } from "react-toastify"
-import { Button } from '../../../../shared/ui/Button'
 
 const CreateSupplier = (props) => {
 

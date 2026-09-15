@@ -37,7 +37,7 @@ const supplierData = {
             btnType: "submit",
             btnText: "Add Supplier"
         },
-        ListOfSupplier: "List Of Supplier"
+        listOfSupplier: "List Of Supplier"
 }
 
 export {

@@ -8,7 +8,7 @@ const Admin = () => {
         <div className="bg-amber-950 text-amber-300">
           <Sidebar />
         </div>
-        <div className="flex-1 bg-amber-50 min-h-screen  w-[76%] h-100">
+        <div className="flex-1 min-h-screen  w-[76%] h-100">
           <Outlet />
         </div>
       </div>

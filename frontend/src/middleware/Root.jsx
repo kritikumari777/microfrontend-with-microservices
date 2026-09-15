@@ -6,13 +6,14 @@ import Navbar from "../modules/navbar/Navbar"
 import Login from "../modules/auth/components/Login"
 import Logout from "../modules/auth/components/Logout"
 import Category from "../modules/ecommerce/category/components"
-import FetchUsers from "../modules/ecommerce/users/components/FetchUsers"
 import Product from "../modules/ecommerce/products/components"
 import Supplier from "../modules/ecommerce/supplier/components"
 import Admin from "../modules/admin/components/Admin"
 import Dashboard from "../modules/admin/components/Dashboard"
 import Orders from "../modules/ecommerce/orders/components"
 import Cart from "../modules/ecommerce/cart/components"
+import Users from "../modules/users/components"
+import Profile from "../modules/profile/components"
 
 const Root = () => {
   return (
@@ -44,8 +45,8 @@ const Root = () => {
           <Route path='supplier' element={<Supplier/>}/>
           <Route path='cart' element={<Cart/>}/>
           <Route path='orders' element={<Orders/>}/>
-          <Route path='users' element={<FetchUsers/>}/>
-          <Route path='profile' element={<Product/>}/>
+          <Route path='users' element={<Users/>}/>
+          <Route path='profile' element={<Profile/>}/>
         </Route>
       </Routes>
     </Router>

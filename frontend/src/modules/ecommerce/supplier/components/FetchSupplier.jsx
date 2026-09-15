@@ -6,14 +6,14 @@ const FetchSupplier = (props) => {
   const { suppilerFields, isPanding, data, error } = props
   const thData = data?.suppilers?.length ? Object.keys(data.suppilers[0]) : []
   const tdData = data?.suppilers?.length ? data?.suppilers?.map((item, i) => Object.values(item)) : []
-  const { ListOfSupplier } = supplierData
+  const { listOfSupplier } = supplierData
 
   if (isPanding) return <h1>Loading ....</h1>
   if (error) return <h1>Error ...</h1>
 
   return (
     <div>
-      <h5>{ListOfSupplier}</h5>
+      <h5>{listOfSupplier}</h5>
       <div className='w-100 h-80 overflow-scroll px-5'>
         <Table thData={thData} tdData={tdData} isCrud={true} {...props} className="" />
       </div>

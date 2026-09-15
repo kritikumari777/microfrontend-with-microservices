@@ -1,1 +1,2 @@
-// right now i am not Authoriztion while adding the category and Product but lattar i have to add.
+//Improvment I need to do :-
+// I have to recive object while editting and worked on id to track the item.
