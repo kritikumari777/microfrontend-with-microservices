@@ -3,13 +3,19 @@ import suppilerModle from "../models/suppiler.model.js"
 const createSuppiler = async (req, res) => {
 
     try {
-        const suppiler = await suppilerModle.create(req?.body)
+        const existSuppiler = await suppilerModle.findOne({ name: req?.body?.name })
+        if (existSuppiler) {
+            return res.status(400).json({
+                success: false,
+                message: "Suppiler already exist"
+            })
+        }
 
+        const suppiler = await suppilerModle.create(req?.body)
         res.status(201).json({
             success: true,
             message: "Suppiler created sucessfull",
             suppiler
-
         })
     }
     catch (err) {
@@ -22,10 +28,10 @@ const createSuppiler = async (req, res) => {
 }
 
 const fetchSuppiler = async (req, res) => {
-   
-    try{
+
+    try {
         const suppilers = await suppilerModle.find().select("-__v")
-    
+
         res.status(200).json({
             message: "Suppiler fetched sucessfully",
             code: 404,
@@ -33,7 +39,7 @@ const fetchSuppiler = async (req, res) => {
             suppilers
         })
 
-    }catch(err){
+    } catch (err) {
         return res.status(500).json({
             message: "Server side error",
             code: 500,
@@ -43,11 +49,11 @@ const fetchSuppiler = async (req, res) => {
 }
 
 const fetchSupplierById = async (req, res) => {
-    
-    try{ 
+
+    try {
         const suppiler = await suppilerModle.findById(req.params.id)
 
-         if(!suppiler){
+        if (!suppiler) {
             return res.status(404).json({
                 message: "Suppiler not found",
                 status: false,
@@ -62,7 +68,7 @@ const fetchSupplierById = async (req, res) => {
             suppiler
         })
 
-    }catch(err){
+    } catch (err) {
         return res.status(500).json({
             message: "Server side error",
             code: 500,
@@ -71,11 +77,11 @@ const fetchSupplierById = async (req, res) => {
     }
 }
 const updateSupplier = async (req, res) => {
-    
-    try{ 
-        const suppiler = await suppilerModle.findByIdAndUpdate(req.params.id, req.body, {new: true})
 
-         if(!suppiler){
+    try {
+        const suppiler = await suppilerModle.findByIdAndUpdate(req.params.id, req.body, { new: true })
+
+        if (!suppiler) {
             return res.status(404).json({
                 message: "Suppiler not found",
                 status: false,
@@ -90,7 +96,7 @@ const updateSupplier = async (req, res) => {
             suppiler
         })
 
-    }catch(err){
+    } catch (err) {
         return res.status(500).json({
             message: "Internal Server Error",
             code: 500,
@@ -99,11 +105,11 @@ const updateSupplier = async (req, res) => {
     }
 }
 const deleteSupplier = async (req, res) => {
-    
-    try{ 
+
+    try {
         const suppiler = await suppilerModle.findByIdAndDelete(req.params.id)
 
-         if(!suppiler){
+        if (!suppiler) {
             return res.status(404).json({
                 message: "Suppiler not found",
                 status: true,
@@ -118,7 +124,7 @@ const deleteSupplier = async (req, res) => {
             suppiler
         })
 
-    }catch(err){
+    } catch (err) {
         return res.status(500).json({
             message: "Server side error",
             code: 500,
@@ -128,10 +134,10 @@ const deleteSupplier = async (req, res) => {
 }
 
 export {
-createSuppiler,
-fetchSuppiler,
-fetchSupplierById,
-updateSupplier,
-deleteSupplier
+    createSuppiler,
+    fetchSuppiler,
+    fetchSupplierById,
+    updateSupplier,
+    deleteSupplier
 
 }
