@@ -13,9 +13,9 @@ const productData = {
          error : "Product name"
         },
 
-        {label: "Please enter category Id",
+        {label: "Please enter category",
          name : "categoryId",
-         type : "text",
+         type : "select",
          error : "Product category"
         },
 

@@ -5,7 +5,7 @@ import Select from './Select'
 
 const FormComp = (props) => {
 
-    const { data, formData, btnType, btnText, onChange, onSubmit, onCancle,  isCancle} = props
+    const { data, formData, btnType, btnText, onChange, onSubmit, onCancle,  isCancle, selectList=["No items"]} = props
 
     return (
         <form onSubmit={onSubmit}>
@@ -13,7 +13,7 @@ const FormComp = (props) => {
                 {data?.map((item, i) => {
                     if (item?.type === "select") {
                         return (
-                            <Select key={i} label={item?.label} name={item?.name} value={formData[item?.name]|| ""} roles={item?.roles} onChange={onChange} />
+                            <Select key={i} label={item?.label} name={item?.name} value={formData[item?.name]|| ""} roles={selectList || item?.roles} onChange={onChange} />
                         )
                     }
                     else {

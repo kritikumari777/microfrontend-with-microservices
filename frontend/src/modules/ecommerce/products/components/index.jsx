@@ -17,6 +17,8 @@ const Product = () => {
     const { isPanding: isCreatePanding, isError: isCreateError, mutate: createMutate } = useApiMutation("/product", "POST", ['product'], getAuthHeader)
     const { isPanding: isEditPanding, isError: isEditError, mutate: editMutate } = useApiMutation("/product", "PUT", ['product'], getAuthHeader)
     const { isPanding: isDeletePanding, isError: isDeleteError, mutate: deleteMutate } = useApiMutation("/product", "DELETE", ['product'], getAuthHeader)
+
+     const { isPanding: categoryPanding, data: categoryData, error: categoryError } = useApiQuery(["category"], "/category", getAuthHeader)
     const { isPanding, data, isError, error, } = useApiQuery(['product'], "/product", getAuthHeader)
     const { header, productBtn } = productData
 
@@ -26,6 +28,8 @@ const Product = () => {
     // useEffect(() => {
     //   getApi()
     // }, [])
+
+    const selectList = categoryData?.categorys
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -77,6 +81,7 @@ const Product = () => {
                 onCancle={onCancle}
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
+                selectList={selectList}
             />
             <FetchProducts
                 data={data}

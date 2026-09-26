@@ -47,9 +47,8 @@ const registerFields = {
             type: "select",
             placeholder: "Enter Role",
             roles: [
-                { id: 1, role: "Please select role" },
-                { id: 2, role: "Customer" },
-                { id: 3, role: "Admin" }
+                { id: 1, role: "Customer" },
+                { id: 2, role: "Admin" }
             ]
         }
     ],
