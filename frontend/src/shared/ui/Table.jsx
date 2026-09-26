@@ -6,7 +6,7 @@ export const Table = (props) => {
     const { thData, tdData, isCrud = false, onDelete, onEdit, isDeletPending } = props
 
     return (
-        <table>
+        <table width="100%">
             <thead className='table-border'>
                 <tr>
                     {thData?.map((item, i) => {
