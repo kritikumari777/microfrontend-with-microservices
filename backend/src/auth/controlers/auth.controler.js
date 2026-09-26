@@ -12,12 +12,11 @@ export async function register(req, res) {
         $or: [
             { username },
             { email },
-            {role}
         ]
     })
 
     if (isAlreadyRegistered) { // 409 conflict issue
-        res.status(409).json({ message: "Username or email alrady exist" })
+        return res.status(409).json({ message: "Username or email alrady exist" })
     }
 
     // password store in hase formate using crypto
