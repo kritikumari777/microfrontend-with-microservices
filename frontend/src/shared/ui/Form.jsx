@@ -5,7 +5,7 @@ import Select from './Select'
 
 const FormComp = (props) => {
 
-    const { data, formData, btnType, btnText, onChange, onSubmit, onCancle,  isCancle, selectList=["No items"]} = props
+    const { data, formData, btnType, btnText, onChange, onSubmit, onCancle,  isCancle, selectList} = props
 
     return (
         <form onSubmit={onSubmit}>

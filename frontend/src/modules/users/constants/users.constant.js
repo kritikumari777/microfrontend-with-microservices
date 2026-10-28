@@ -41,7 +41,14 @@ const usersData = {
     btnFields: {
         btnType: "submit",
         btnText: "Add User"
-    }
+    },
+
+    columns: [
+        { key: "_id", header: "ID" },
+        { key: "username", header: "Name" },
+        { key: "email", header: "Email" },
+        { key: "role", header: "Role" },
+    ]
 }
 
 export {

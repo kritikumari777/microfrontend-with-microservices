@@ -37,7 +37,15 @@ const supplierData = {
             btnType: "submit",
             btnText: "Add Supplier"
         },
-        listOfSupplier: "List Of Supplier"
+        listOfSupplier: "List Of Supplier",
+
+        columns: [
+            {key: "_id", header : "ID"},
+            {key: "name", header : "name"},
+            {key: "email", header : "Email"},
+            {key: "phone", header : "Phone"},
+            {key: "address", header : "Address"},
+        ]
 }
 
 export {

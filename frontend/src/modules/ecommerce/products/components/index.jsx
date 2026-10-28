@@ -29,7 +29,7 @@ const Product = () => {
     //   getApi()
     // }, [])
 
-    const selectList = categoryData?.categorys
+    const selectList = categoryData?.categorys?.length > 0 && categoryData?.categorys
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -42,19 +42,19 @@ const Product = () => {
             }
         }
         setProductFields("")
+        setIsEditId(null)
+        setIsOpen(!isOpen)
     }
 
     const onEdit = (row) => {
-        const [id, title, description, price, category, categoryId] = row
-        setIsEditId(id)
+        setIsEditId(row?._id)
         setIsOpen(prev => !prev)
-        setProductFields({ title: title, categoryId: categoryId, category: category, price: price, description: description })
+        setProductFields({ title: row?.title, categoryId: row?.categoryId?._id, price: row?.price, description: row?.description })
     }
 
     const onDelete = (row) => {
-        const id = row[0]
         deleteMutate({
-            urlParams: `/${id}`
+            urlParams: `/${row?._id}`
         })
     }
 
@@ -84,7 +84,7 @@ const Product = () => {
                 selectList={selectList}
             />
             <FetchProducts
-                data={data}
+                data={data?.products}
                 isPanding={isPanding}
                 isError={error}
                 isDeletePanding={isDeletePanding}

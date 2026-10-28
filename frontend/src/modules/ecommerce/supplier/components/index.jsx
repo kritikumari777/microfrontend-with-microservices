@@ -41,6 +41,7 @@ const Supplier = () => {
             }
         }
         setSuppilerFields("")
+        setIsEditId(null)
     }
 
     const onCancle = () => {
@@ -50,17 +51,15 @@ const Supplier = () => {
     }
 
     const onEdit = (row) => {
-        const [id, name, email, phone, address] = row
-        setIsEditId(id)
+        setIsEditId(row?._id)
         setIsOpen(true)
-        setSuppilerFields({ name: name, email: email, phone: phone, address: address })
+        setSuppilerFields({ name: row?.name, email: row?.email, phone: row?.phone, address: row?.address })
 
     }
 
     const onDelete = (row) => {
-        const id = row[0]
         deleteMutate({
-            urlParams: `/${id}`
+            urlParams: `/${row?._id}`
         })
 
     }
@@ -86,7 +85,7 @@ const Supplier = () => {
             <FetchSupplier
                 suppilerFields={suppilerFields}
                 isPanding={isPanding}
-                data={data}
+                data={data?.suppilers}
                 error={error}
                 onDelete={onDelete}
                 onEdit={onEdit}

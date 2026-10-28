@@ -1,90 +1,48 @@
 const ordersData = {
-    header: "Manage Orders",
 
     listOfOrders: "List of Orders",
 
-    ordersBtn: {
-        btnType: "button",
-        btnText: "Add Supplier"
-    },
-
     fields: [
         {
-            label: "Cart Items ID",
-            name: "cartItems",
-            type: "text",
-            placeholder: "cart Items ID",
-            error: "Please enter cart Items ID"
-        },
-        {
-            label: "shipping Address",
-            name: "shippingAddress",
-            type: "text",
-            placeholder: "shipping Address",
-            error: "Please enter shipping Address"
-        },
-        {
-            label: "city",
-            name: "city",
-            type: "text",
-            placeholder: "city",
-            error: "Please enter city"
-        },
-        {
-            label: "zip",
-            name: "zip",
-            type: "text",
-            placeholder: "zip",
-            error: "Please enter zip"
-        },
-        {
-            label: "country",
-            name: "country",
-            type: "text",
-            placeholder: "country",
-            error: "Please enter country"
-        },
-        {
-            label: "phone",
-            name: "phone",
-            type: "text",
-            placeholder: "phone",
-            error: "Please enter phone"
-        },
-        {
-            label: "status",
+            label: "Order Status",
             name: "status",
-            type: "text",
+            type: "select",
             placeholder: "status",
+            roles: [
+                {id: 0, role: "Pending"},
+                {id: 1, role: "Confirmed"},
+                {id: 2, role: "Processing"},
+                {id: 3, role: "Shipped"},
+                {id: 4, role: "Delivered",},
+                {id: 5, role: "Cancelled",}
+            ],
             error: "Please enter status"
-        },
-        {
-            label: "total Price",
-            name: "totalPrice",
-            type: "text",
-            placeholder: "total Price",
-            error: "Please enter total Price"
-        },
-        {
-            label: "user",
-            name: "user",
-            type: "text",
-            placeholder: "user",
-            error: "Please enter user"
-        },
-        {
-            label: "ordered Date",
-            name: "orderedDate",
-            type: "text",
-            placeholder: "ordered Date",
-            error: "Please enter ordered Date"
         },
     ],
 
     btnFields: {
         btnType: "submit",
-        btnText: "Add Order"
-    }
+        btnText: "Update Status"
+    },
+    columns: [
+
+        { key: "user", header: "User", render: (row) => row.user?.username ?? row.user?.email ?? "-" },
+        { key: "items", header: "Items", render: (row) => row.items?.length ?? 0 },
+        { key: "subTotle", header: "Sub Total", render: (row) => `₹${row.subTotal ?? 0}` },
+        { key: "totalPrice", header: "Total Price", render: (row) => `₹${row.totalPrice ?? 0}` },
+        { key: "shippingAddress", header: "Shipping Address", render: (row) => row.shippingAddress ?? "-", },
+        { key: "city", header: "City", },
+        { key: "zip", header: "ZIP" },
+        { key: "country", header: "Country" },
+        { key: "phone", header: "Phone" },
+        { key: "status", header: "Status" },
+        {
+            key: "orderedDate", header: "Ordered Date", render: (row) =>
+                row.orderedDate
+                    ? new Date(row.orderedDate).toLocaleDateString()
+                    : "-",
+        },
+    ]
 
 }
 

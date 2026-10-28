@@ -1,39 +1,36 @@
-import React from 'react'
-import TableTh from './TableTh'
 import { Button } from './Button'
 
 export const Table = (props) => {
-    const { thData, tdData, isCrud = false, onDelete, onEdit, isDeletPending } = props
+    const { columns = [], data = [], isCrud = false, onDelete, onEdit, isDeletPending = false } = props
 
     return (
         <table width="100%">
             <thead className='table-border'>
                 <tr>
-                    {thData?.map((item, i) => {
-                        const id = thData.indexOf(item) === 0 && item
+                    {columns?.map((column) => {
                         return (
-                            <th key={i}>{!id && item}</th>
+                            <th key={column?.key ?? colIndex}>
+                                {column?.header}
+                            </th>
                         )
                     })}
                     {isCrud && <th>Actions</th>}
                 </tr>
             </thead>
             <tbody className='table-border'>
-                {tdData?.map((row, rowIndex) => (
-                    <tr key={rowIndex}>
-                        {row?.map((cell, cellIndex) => {
-                            const id = row.indexOf(cell) === 0 && cell
-
+                {data?.map((row, rowIdx) => (
+                    <tr key={row._id ?? row.id ?? rowIdx}>
+                        {columns?.map((column, colIdx) => {
                             return (
-                                <td key={cellIndex}>
-                                    {!id && cell}
+                                <td key={column?.key ?? colIdx} className='truncate'>
+                                    {column?.render ? column?.render(row) : row?.[column?.key] ?? '-'}
                                 </td>
                             )
                         })}
-                        {isCrud && <td>
-                            <Button className='btn btn-success m-2' type='button' text="Edit" onClick={() => onEdit(row)} />
-                            <Button className='btn btn-danger m-2' type='button' text={isDeletPending ? "Loading" : "Delete"} onClick={() => onDelete(row)} />
-                        </td>}
+                        {isCrud && (<td>
+                            <Button className='btn btn-success m-2' type='button' text="Edit" onClick={() => onEdit?.(row)} />
+                            <Button className='btn btn-danger m-2' type='button' text={isDeletPending ? "Loading" : "Delete"} onClick={() => onDelete?.(row)} />
+                        </td>)}
                     </tr>
                 ))}
             </tbody>

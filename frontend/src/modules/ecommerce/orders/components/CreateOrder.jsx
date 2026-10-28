@@ -1,15 +1,18 @@
-import React from 'react'
 import { ordersData } from '../constants/orders.constant'
 import Modal from '../../../../shared/ui/Modal'
 import { FormComp } from "../../../../shared/ui/Form"
-const CreateOrder = (props) => {
-  const { isOpen, setIsOpen, ordersFields, setOrdersFields, isEditId } = props
-  const { addOrder, fields, btnFields } = ordersData
+import { onChangeObj } from '../../../../shared/action/EventAct'
+
+const EditOrder = (props) => {
+  const { isOpen, setIsOpen, ordersFields, setOrdersFields, isEditId, isEditPanding } = props
+  const {fields, btnFields } = ordersData
+
+  const text = isEditPanding ? "Loading" : btnFields?.btnText;
+
   return (
-    <Modal isOpen={isOpen} setIsOpen={() => setIsOpen(prev => !prev)} className="w-95 h-100 m-auto">
-      <h5>{addOrder}</h5>
+    <Modal isOpen={isOpen} setIsOpen={() => setIsOpen(prev => !prev)} className="w-95 h-30 m-auto">
       <FormComp data={fields} formData={ordersFields}
-        btnType={btnFields?.btnType} btnText={btnFields?.btnText}
+        btnType={btnFields?.btnType} btnText={text}
         onChange={(e) => onChangeObj(e, setOrdersFields)}
         isCancle={isEditId && true}
         {...props}
@@ -18,4 +21,4 @@ const CreateOrder = (props) => {
   )
 }
 
-export default CreateOrder
+export default EditOrder

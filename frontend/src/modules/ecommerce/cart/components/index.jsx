@@ -8,8 +8,8 @@ import { cartData } from '../constants/cart.constant'
 import CreateCart from './CreateCart'
 import FetchCart from './FetchCart'
 
-let fields = { userId: "", productId: "", qyt: "" }
-let idParams = "/6a0fd40e62f6d2fe330413ac" // userId
+let fields = {productId: "", qty: "" } // userId: "" taking backend from auth users
+let idParams = "/6acca68d0daa385330094c11" // userId
 
 const Cart = () => {
   const [cartFields, setCartFields] = useState(fields)
@@ -28,12 +28,13 @@ const Cart = () => {
     // if (isEditId !== null) {
     //   updateMutation({ body: cartFields, urlParams: `/${isEditId}` })
     // } else {
-    // if (cartFields?.name?.trim()) {
-    let userId = "6a0fd40e62f6d2fe330413ac"
-      createMutate({ body: cartFields, urlParams: `/${userId}` })
-    // }
+    if (!cartFields?.name?.trim()) {
+      createMutate({ body: cartFields})
+    }
     // }
     setCartFields(fields)
+    setIsEditId(null)
+    setIsOpen(!isOpen)
   }
 
   const onCencle = () => {
@@ -43,8 +44,8 @@ const Cart = () => {
 
   // const onEdit = (id, row) => {
   //   const { cartItems, shippingAddress, city, zip, country, phone, status, totalPrice, user, orderedDate } = row
-  //   setIsEditId(id)
-  //   setCartFieldes({ cartItems: cartItems, shippingAddress: shippingAddress, city: city, zip: zip, country: country, phone: phone, status: status, totalPrice: totalPrice, user: user, orderedDate: orderedDate })
+  //   setIsEditId(row?._id)
+  //   setCartFields({ cartItems: cartItems, shippingAddress: shippingAddress, city: city, zip: zip, country: country, phone: phone, status: status, totalPrice: totalPrice, user: user, orderedDate: orderedDate })
   //   setIsOpen(prev => !prev)
   // }
 
@@ -52,14 +53,10 @@ const Cart = () => {
     alert("Can't perform edit operation")
   }
 
-  const onDelete = () => {
-    const userId = "6a0fd40e62f6d2fe330413ac"
-    const productId = "6a9ec17784ba86aa61658f46"
-    deleteMutate({ urlParams: `/${userId}/${productId}` })
-        // const id = row[0]
-        // deleteMutate({
-        //     urlParams: `/${id}`
-        // })
+  const onDelete = (row) => {
+    const userId = row?.userId?._id
+    const productId = row?.productId?._id
+    // deleteMutate({ urlParams: `/${userId}/${productId}` })
   }
 
   return (
@@ -81,7 +78,7 @@ const Cart = () => {
       />
       <FetchCart
         isPanding={isPanding}
-        data={data}
+        data={data?.cartItems}
         error={error}
         onCencle={onCencle}
         onEdit={onEdit}

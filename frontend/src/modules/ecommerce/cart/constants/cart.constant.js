@@ -10,13 +10,6 @@ const cartData = {
 
     fields: [
         {
-            label: "User ID",
-            name: "userId",
-            type: "text",
-            placeholder: "User ID",
-            error: "Please enter User ID"
-        },
-        {
             label: "Product ID",
             name: "productId",
             type: "text",
@@ -35,7 +28,22 @@ const cartData = {
     btnFields: {
         btnType: "submit",
         btnText: "Add Cart"
-    }
+    },
+
+    columns: [
+        { key: '_id', header: 'ID' },
+        { key: 'product', header: 'Product', render: (row) => row.productId?.title ?? '-', },
+        { key: 'description', header: 'Description', render: (row) => row.productId?.description ?? '-', },
+        { key: 'price', header: 'Price', render: (row) => `₹${row.productId?.price ?? 0}` },
+        { key: 'qty', header: 'Quantity', render: (row) => row.qty ?? 0 },
+        {
+            key: 'total', header: 'Total', render: (row) => {
+                const price = row.productId?.price ?? 0
+                const qty = row.qty ?? 0
+                return `₹${price * qty}`
+            },
+        },
+    ]
 }
 
 export {

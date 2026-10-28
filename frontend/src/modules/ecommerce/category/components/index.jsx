@@ -40,6 +40,7 @@ const Category = () => {
             }
         }
         setCategoryFields("")
+        setIsEditId(null)
     }
 
     const onCancle = () => {
@@ -48,16 +49,14 @@ const Category = () => {
     }
 
     const onEdit = (row) => {
-        const [id, name, icon] = row
-        setIsEditId(id)
-        setCategoryFields({ name: name, icon: icon })
+        setIsEditId(row?._id)
+        setCategoryFields({ name: row?.name, icon: row?.icon })
 
     }
 
     const onDelete = (row) => {
-        const id = row[0]
         deleteMutate({
-            urlParams: `/${id}`
+            urlParams: `/${row?._id}`
         })
 
     }
@@ -65,7 +64,7 @@ const Category = () => {
     return (
         <div>
             <Header text={header} />
-            <div className='flex gap-5'>
+            <div className='flex gap-2'>
                 <div className='flex-1'>
                     <CreateCategory
                         categoryFields={categoryFields}
@@ -82,7 +81,7 @@ const Category = () => {
                     <FetchCategory
                         categoryFields={categoryFields}
                         isPanding={isPanding}
-                        data={data}
+                        data={data?.categorys}
                         error={error}
                         onDelete={onDelete}
                         onEdit={onEdit}
