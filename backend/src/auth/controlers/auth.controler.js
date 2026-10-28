@@ -74,7 +74,7 @@ export async function register(req, res) {
         sameSite: "strict",
         maxAge: 7 * 24 * 60 * 60 * 1000 // 7 day
     })
-    res.status(201).json({
+   return res.status(201).json({
         message: "User registered successfully",
         code: 201,
         user: {
@@ -148,7 +148,7 @@ export async function login(req, res) {
         maxAge: 7 * 24 * 60 * 1000 // 7d
     })
 
-    res.status(200).json({
+    return res.status(200).json({
         message: "Logged in successfully",
         code: 200,
         user: {
@@ -172,7 +172,7 @@ export async function getAllUser(req, res) {
     
         const user = await userModel.find().select('-password -__v')
     
-        res.status(200).json({
+        return res.status(200).json({
             message: "user fetched sucessfully",
             code: 200,
             user: user
@@ -199,7 +199,7 @@ export async function getMe(req, res) {
     
         const user = await userModel.findById(decoded.id).select('-password')
     
-        res.status(200).json({
+        return res.status(200).json({
             message: "user fetched sucessfully",
             code: 200,
             user: {
@@ -271,7 +271,7 @@ export async function refreshToken(req, res) {
         maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
     })
 
-    res.status(200).json({
+    return res.status(200).json({
         message: "Access tocken refreshed sucessfully",
         accessToken
     })
@@ -304,7 +304,7 @@ export async function logout(req, res) {
 
     res.clearCookie("refreshTocken")
 
-    res.status(200).json({
+    return res.status(200).json({
         message: "Logged out sucessfully",
         code: 200
     })
@@ -339,7 +339,7 @@ export async function logoutAll(req, res) {
     res.clearCookie("refreshToken")
     // logout
 
-    res.status(200).json({
+    return res.status(200).json({
         message: "Logged out from all devices sucessfully",
         code: 200
     })

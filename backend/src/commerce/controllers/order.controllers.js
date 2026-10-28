@@ -1,60 +1,65 @@
-import mongoose, { isValidObjectId } from "mongoose"
+import mongoose from "mongoose"
 import cartModel from "../models/cart.model.js"
 import orderModle from "../models/order.model.js"
-import productModel from "../models/product.model.js"
 
 const createOrder = async (req, res) => {
 
     try {
-        // const orderItemsIds = Promise.all(req.body.cartItems.map(async cardItem => {
-        //     return cardItem._id
-        // }))
 
-        // const newOrderItemResolved = await orderItemsIds
+        const userId = req.user._id
 
-        const totalPrices = await Promise.all(req.body.cartItems.map(async (cartItemsId) => {
+        // 1. Get current user's cart
+        const cartItems = await cartModel.find({ userId }).populate('productId')
 
-            // console.log(cartItemsId)
+        if (!cartItems.length) {
+            return res.status(400).json({
+                success: false,
+                message: "Cart  is empty",
+            })
+        }
+        // 2. Build order item snapshots
+        const items = cartItems.map((cardItem) => {
+            const product = cardItem.productId;
 
-            const cartItem = await cartModel.findById(cartItemsId).populate('productId')
-            // const price = await productModel.findById(cartItem?.)
-
-            if (!cartItem) {
-                console.log("Cart item not found");
-                return 0;
+            if (!product) {
+                throw new Error("Product not found");
             }
-            // console.log(cartItem)
-            const totalPrices = cartItem.productId.price * cartItem.qty;
 
-            return totalPrices
-        }))
+            const total = product.price * cardItem.qty
 
-        //sum all prices
-        const totalPrice = totalPrices.reduce((a, b) => a + b, 0)
+            return {
+                productId: product._id,
+                name: product.title,
+                price: product.price,
+                qty: cardItem.qty,
+                total
+            }
+        })
 
-        let order = new orderModle({
-            cartItems: req.body.cartItems,
+        // 3. Calculate subtotal
+        const subTotal = items.reduce((sum, item) => sum + item.total, 0)
+
+        // Later can add shipping, tax, discount, etc.
+        const totalPrice = subTotal
+
+        // 4. Create order
+        const order = await orderModle.create({
+            user: userId,
+            items,
+            subTotal,
+            totalPrice,
             shippingAddress: req.body.shippingAddress,
             city: req.body.city,
             zip: req.body.zip,
             country: req.body.country,
             phone: req.body.phone,
-            status: req.body.status,
-            totalPrice: totalPrice,
-            user: req.body.user,
-            orderedDate: req.body.orderedDate,
         })
 
-        order = await order.save()
+        await cartModel.deleteMany({
+            userId
+        })
 
-        if (!order) {
-            return res.status(404).json({
-                success: false,
-                message: "Order Not Found"
-            })
-        }
-
-        res.status(201).json({
+        return res.status(201).json({
             success: true,
             message: "Order created sucessfully",
             order
@@ -72,20 +77,53 @@ const fetchOrder = async (req, res) => {
 
     try {
 
-        const orderList = await orderModle.find().populate('user', 'username').sort({ 'orderedDate': -1 }).select("-__v")
+        const orderList = await orderModle
+            .find({ user: req.user._id })
+            .sort({ orderedDate: -1 })
+            .select("-__v");
 
-        if (!orderList) {
+        if (!orderList.length) {
             return res.status(404).json({
-                success: false,
-                message: "Order Not Found"
+                "success": true,
+                "orderList": []
             })
         }
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             message: "Orders Fetched sucessfully",
             orderList
         })
     } catch (err) {
+        console.log(req)
+        return res.status(500).json({
+            success: false,
+            message: "Internal Server Error"
+        })
+    }
+
+}
+const fetchOrderList = async (req, res) => {
+
+    try {
+        const orderList = await orderModle
+            .find()
+            .sort({ orderedDate: -1 })
+            .select("-__v")
+            .populate("user", "username email");
+
+        if (!orderList.length) {
+            return res.status(404).json({
+                "success": true,
+                "orderList": []
+            })
+        }
+        return res.status(200).json({
+            success: true,
+            message: "Orders Fetched sucessfully",
+            orderList
+        })
+    } catch (err) {
+        console.log(req)
         return res.status(500).json({
             success: false,
             message: "Internal Server Error"
@@ -98,17 +136,49 @@ const fetchOrderById = async (req, res) => {
 
     try {
 
-        const order = await orderModle.findById(req.params.id)
-            .populate({
-                path: 'cartItems',
-                select: 'qty, productId',
-                populate: {
-                    path: 'productId'
-                }
+        if (!mongoose.isValidObjectId(req.params.id)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid order id"
             })
-            .populate({
-                path: 'user', select: "username"
+        }
+
+        const order = await orderModle.findOne({ _id: req.params.id, user: req.user._id })
+            .populate('user', "username email")
+
+        if (!order) {
+            return res.status(404).json({
+                success: false,
+                message: "Order Not Found"
             })
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "A order fatched Sucessfully",
+            order
+        })
+
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            message: "Internal Server Error"
+        })
+    }
+
+}
+const fetchAdminOrderById = async (req, res) => {
+
+    try {
+
+        if (!mongoose.isValidObjectId(req.params.id)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid order id"
+            })
+        }
+
+        const order = await orderModle.findById(req.params.id).populate("user", "username email")
 
         if (!order) {
             return res.status.json({
@@ -117,7 +187,7 @@ const fetchOrderById = async (req, res) => {
             })
         }
 
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             message: "A order fatched Sucessfully",
             order
@@ -134,15 +204,24 @@ const fetchOrderById = async (req, res) => {
 
 const updateOrder = async (req, res) => {
 
+    console.log("req.params.id", req.params.id)
+
     if (!mongoose.isValidObjectId(req.params.id)) {
-        res.status(400).json({
+        return res.status(400).json({
             success: false,
             message: "Invalid order id"
         })
     }
 
     try {
-        const order = await orderModle.findByIdAndUpdate(req.params.id, req.body, { new: true })
+        const { status } = req.body
+        const order = await orderModle.findByIdAndUpdate(
+            req.params.id,
+            { status },
+            { new: true, runValidators: true }
+        )
+
+        console.log("first", order)
 
         if (!order) {
             return res.status(404).json({
@@ -151,7 +230,7 @@ const updateOrder = async (req, res) => {
             })
         }
 
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             message: "Order Updated Sucessfully",
             order
@@ -166,57 +245,60 @@ const updateOrder = async (req, res) => {
 
 }
 
-const deleteOrder = async (req, res) => {
+// const cencleOrder = async (req, res) => {
 
-    if (!mongoose.isValidObjectId(req.params.id)) {
-        res.status(400).json({
-            success: false,
-            message: "Invalid order Id"
-        })
-    }
+//     if (!mongoose.isValidObjectId(req.params.id)) {
+//         return res.status(400).json({
+//             success: false,
+//             message: "Invalid order Id"
+//         })
+//     }
 
-    try {
+//     try {
 
-        const order = await orderModle.findByIdAndDelete(req.params.id)
+//         const order = await orderModle.findByIdAndDelete(req.params.id)
 
-        if (!order) {
-            return res.status(404).json({
-                success: false,
-                message: "Order Not Found"
-            })
-        }
+//         if (!order) {
+//             return res.status(404).json({
+//                 success: false,
+//                 message: "Order Not Found"
+//             })
+//         }
 
-        //also delete cartItems
-        await order.cartItems.map(async cartItem => {
-            await cartItem.findByIdAndDelete(cartItem)
-        })
+//         // Delete associated cart items
+//         await Promise.all(
+//             order.cartItems.map((cartItemId) =>
+//                 cartModel.findByIdAndDelete(cartItemId)
+//             )
+//         )
 
-        res.status(200).json({
-            success: true,
-            message: "Order deleted sucessfully",
-            order
-        })
+//         return res.status(200).json({
+//             success: true,
+//             message: "Order deleted sucessfully",
+//             order
+//         })
 
-    } catch (err) {
-        return res.status(500).json({
-            success: false,
-            message: err.message
-        })
-    }
+//     } catch (err) {
+//         return res.status(500).json({
+//             success: false,
+//             message: err.message
+//         })
+//     }
 
-}
+// }
 
 const totalSales = async (req, res) => {
-    const totalSales = await orderModle.aggregate([
-        { $group: { _id: null, totalSales: { $sum: `$totalPrice` } } }
-    ])
 
     try {
 
-        res.status(200).json({
+        const total = await orderModle.aggregate([
+            { $group: { _id: null, totalSales: { $sum: "$totalPrice" } } }
+        ])
+
+        return res.status(200).json({
             success: true,
             message: "Total sales calculated sucessfully",
-            totalSales: totalSales.pop().totalSales
+            totalSales: total[0]?.totalSales ?? 0
         })
 
     } catch (err) {
@@ -228,23 +310,17 @@ const totalSales = async (req, res) => {
 }
 
 const totalOrder = async (req, res) => {
-    const totalOrder = await orderModle.countDocuments()
-   
-    try{
-        if(!totalOrder){
-          res.status(404).json({
-            success: false,
-            message: "No order found"
-          })
-        }
 
-        res.status(200).json({
+    try {
+        const totalOrder = await orderModle.countDocuments()
+
+        return res.status(200).json({
             success: true,
             message: "Totle order calculated successfully",
             totalOrder
         })
-    }catch (err){
-        res.status(500).json({
+    } catch (err) {
+        return res.status(500).json({
             success: false,
             message: "Internal server error"
         })
@@ -254,9 +330,10 @@ const totalOrder = async (req, res) => {
 export {
     createOrder,
     fetchOrder,
+    fetchOrderList,
     fetchOrderById,
+    fetchAdminOrderById,
     updateOrder,
-    deleteOrder,
     totalSales,
     totalOrder
 }

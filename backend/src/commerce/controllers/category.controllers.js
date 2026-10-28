@@ -14,7 +14,7 @@ const createCategory = async (req, res) => {
 
         const category = await categoryModle.create(req.body)
 
-        res.status(201).json({
+        return res.status(201).json({
             success: true,
             message: "Category created sucessfully",
             category
@@ -32,7 +32,7 @@ const fetchCategory = async (req, res) => {
 
         const categorys = await categoryModle.find().select("-__v")
 
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             message: "Categorys fetched sucessfully",
             categorys
@@ -57,7 +57,7 @@ const fetchCategoryById = async (req, res) => {
             })
         }
 
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             message: "A category fetched sucessfully",
             category
@@ -84,7 +84,7 @@ const updateCategory = async (req, res) => {
             })
         }
 
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             message: "Updated Category successfully",
             category
@@ -110,7 +110,7 @@ const removeCategory = async (req, res) => {
             })
         }
 
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             message: "Remove category successfully",
             category

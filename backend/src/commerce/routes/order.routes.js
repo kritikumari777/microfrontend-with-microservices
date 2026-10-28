@@ -1,14 +1,30 @@
 import { Router } from "express";
-import { createOrder, deleteOrder, fetchOrder, fetchOrderById, totalOrder, totalSales, updateOrder } from "../controllers/order.controllers.js";
 
-const orderRouter = Router()
+import {
+    createOrder,
+    fetchOrder,
+    fetchOrderById,
+    fetchOrderList,
+    totalOrder,
+    totalSales,
+    updateOrder
+} from "../controllers/order.controllers.js";
 
-orderRouter.post("/", createOrder)
-orderRouter.get("/", fetchOrder)
-orderRouter.get("/totalSales", totalSales)
-orderRouter.get("/totalOrder", totalOrder)
-orderRouter.get("/:id", fetchOrderById)
-orderRouter.put("/:id", updateOrder)
-orderRouter.delete("/:id", deleteOrder)
+const orderRouter = Router();
 
-export default orderRouter
+// Customer
+orderRouter.post("/", createOrder);
+orderRouter.get("/", fetchOrder);
+
+// Admin
+orderRouter.get("/orderList", fetchOrderList);
+orderRouter.get("/totalSales", totalSales);
+orderRouter.get("/totalOrder", totalOrder);
+
+// Customer order detail
+orderRouter.get("/:id", fetchOrderById);
+
+// Admin update
+orderRouter.patch("/:id", updateOrder);
+
+export default orderRouter;

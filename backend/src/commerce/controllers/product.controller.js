@@ -12,7 +12,7 @@ const createProduct = async (req, res) => {
     })
     try {
         const product = await productModel.create(req.body)
-        res.status(201).json({
+        return res.status(201).json({
             success: true,
             message: "Product created sucessfullf",
             product
@@ -30,7 +30,7 @@ const fetchProduct = async (req, res) => {
     
     try {
         const products = await productModel.find().populate("categoryId").select("-__v")
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             message: "product fetched sucessfully",
             products
@@ -48,7 +48,7 @@ const fetchSelectedProduct = async (req, res) => {
     
     try {
         const products = await productModel.find().select("title")
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             message: "product fetched sucessfully",
             products
@@ -73,7 +73,7 @@ const fetchProductById = async (req, res) => {
                 message: "Product not found"
             })
         }
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             message: "Product is fetched",
             product
@@ -88,7 +88,7 @@ const fetchProductById = async (req, res) => {
 
 const updateProduct = async (req, res) => {
     if(!mongoose.isValidObjectId(req.params.id)){
-        res.status(400).json({
+        return res.status(400).json({
             success:false,
             message:"Invalid product id"
         })
@@ -104,7 +104,7 @@ const updateProduct = async (req, res) => {
             })
         }
 
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             message: "Product updated sucessfully",
             product
@@ -136,7 +136,7 @@ const deleteProduct = async (req, res) => {
             })
         }
 
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             message: "Product deleted successfully",
             product

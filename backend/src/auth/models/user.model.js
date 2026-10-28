@@ -14,7 +14,6 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, "Password is required"],
-        unique: [true, "Password must be unique"]
     },
     role:{
         type: String, 
@@ -24,13 +23,13 @@ const userSchema = new mongoose.Schema({
     }
 })
 
-userSchema.virtual('id').get(function(){
-    return this._id.toHexString()
-})
+// userSchema.virtual('id').get(function(){
+//     return this._id.toHexString()
+// })
 
-userSchema.set('toJSON', {
-    virtuals: true
-})
+// userSchema.set('toJSON', {
+//     virtuals: true
+// })
 
 const userModel = mongoose.model("User", userSchema) // model in small letter
 

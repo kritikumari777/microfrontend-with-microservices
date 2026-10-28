@@ -12,7 +12,7 @@ const createSuppiler = async (req, res) => {
         }
 
         const suppiler = await suppilerModle.create(req?.body)
-        res.status(201).json({
+        return res.status(201).json({
             success: true,
             message: "Suppiler created sucessfull",
             suppiler
@@ -32,7 +32,7 @@ const fetchSuppiler = async (req, res) => {
     try {
         const suppilers = await suppilerModle.find().select("-__v")
 
-        res.status(200).json({
+        return res.status(200).json({
             message: "Suppiler fetched sucessfully",
             code: 404,
             status: true,
@@ -61,7 +61,7 @@ const fetchSupplierById = async (req, res) => {
             })
         }
 
-        res.status(200).json({
+        return res.status(200).json({
             message: "Suppiler fetched sucessfully",
             status: true,
             code: 200,
@@ -89,7 +89,7 @@ const updateSupplier = async (req, res) => {
             })
         }
 
-        res.status(200).json({
+        return res.status(200).json({
             message: "Suppiler Updated sucessfully",
             status: true,
             code: 200,
@@ -117,7 +117,7 @@ const deleteSupplier = async (req, res) => {
             })
         }
 
-        res.status(200).json({
+        return res.status(200).json({
             message: "Suppiler fetched sucessfully",
             status: true,
             code: 200,

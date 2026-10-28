@@ -4,8 +4,8 @@ import authMiddleware from "../../authMiddleware/authMiddleware.js"
 
 const cartRouter = Router()
 
-cartRouter.post("/:userId",authMiddleware, createCart)
-cartRouter.get("/:userId", authMiddleware, fetchCarts)
-cartRouter.delete("/:userId/:productId", authMiddleware, removeCart)
+cartRouter.post("/",authMiddleware, createCart)
+cartRouter.get("/", authMiddleware, fetchCarts)
+cartRouter.delete("/:productId", authMiddleware, removeCart)
 
 export default cartRouter
